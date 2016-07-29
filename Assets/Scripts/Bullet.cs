@@ -39,11 +39,16 @@ public class Bullet : MonoBehaviour {
 	void checkForCollision(){
 		RaycastHit2D hit =  Physics2D.CircleCast(transform.position, 0.1f, Vector2.zero);
 		if(hit){
-			//layer 8 is "hittable"
-			if(hit.transform.name != null && hit.transform.gameObject.layer == 8){
-//				Debug.Log(hit.transform.name);
-				GameObject expl = GameObject.Instantiate(Resources.Load("Prefabs/BulletExplosion"), transform.position, Quaternion.identity) as GameObject;
-				Destroy(gameObject);
+			//layer 8 is "hittable" layer
+			if(hit.transform.name != null){
+				if(hit.transform.gameObject.layer == 8){
+					GameObject expl = GameObject.Instantiate(Resources.Load("Prefabs/BulletExplosion"), transform.position, Quaternion.identity) as GameObject;
+					Destroy(gameObject);
+
+					if(hit.transform.tag == "Enemy"){
+						hit.transform.gameObject.GetComponent<Enemy>().takeDmg(5);
+					}
+				}
 			}
 		}
 

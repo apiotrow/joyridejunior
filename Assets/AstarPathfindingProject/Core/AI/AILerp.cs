@@ -383,7 +383,7 @@ public class AILerp : MonoBehaviour {
 			}
 
 
-
+//			tr.gameObject.GetComponent<Rigidbody2D>().MovePosition(nextPos * Time.deltaTime / 100f);
 			tr.position = nextPos;
 		}
 	}
