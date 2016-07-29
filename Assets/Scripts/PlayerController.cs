@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 	GameObject player;
 	Rigidbody2D playerRB;
+	Vector2 reticleTarget;
+	bool weaponFiring;
+	float firingSpeed = 0.1f;
 
 	public MoveType moveType;
 	public float movSpeed = 9f;
@@ -17,11 +21,52 @@ public class PlayerController : MonoBehaviour {
 		player = GameObject.Find("Player");
 		playerRB = player.GetComponent<Rigidbody2D>();
 		moveType = MoveType.lerped;
+		reticleTarget = new Vector3();
+		weaponFiring = false;
 	}
 
 	void Update () {
 		updatePosition();
+		updateShooting();
+	}
 
+	void updateShooting(){
+		GameObject.Find("Reticle").transform.position = Input.mousePosition;
+
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		Vector3 screenPos = Camera.main.WorldToScreenPoint(ray.origin);
+
+
+		if (Input.GetMouseButton(0)
+			&& screenPos.x > 0 
+			&& screenPos.x < Screen.width
+			&& screenPos.y > 0 
+			&& screenPos.y < Screen.height
+		){
+			reticleTarget = ray.origin;
+			if(weaponFiring == false){
+				StartCoroutine("fireWeapon");
+				weaponFiring = true;
+			}
+		}else{
+			weaponFiring = false;
+			StopCoroutine("fireWeapon");
+		}
+			
+	}
+
+	IEnumerator fireWeapon()
+	{
+		while(true){
+			GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), player.transform.position, Quaternion.identity) as GameObject;
+			Debug.Log("firing");
+			yield return new WaitForSeconds(firingSpeed);
+		}
+
+	}
+
+	public Vector3 getReticleTarget(){
+		return reticleTarget;
 	}
 
 	void updatePosition(){
@@ -43,13 +88,9 @@ public class PlayerController : MonoBehaviour {
 			moveDown = true;
 		}
 
-
-
 		Vector2 player2Dpos = new Vector2(player.transform.position.x, player.transform.position.y);
-
 		Vector2 newPos = Vector2.zero;
 
-//		float movSpeed = 7f;
 		if(moveUp){
 			newPos.y += movSpeed;
 		}
