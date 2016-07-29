@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		Vector3 screenPos = Camera.main.WorldToScreenPoint(ray.origin);
 
-
 		if (Input.GetMouseButton(0)
 			&& screenPos.x > 0 
 			&& screenPos.x < Screen.width
@@ -59,7 +58,6 @@ public class PlayerController : MonoBehaviour {
 	{
 		while(true){
 			GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), player.transform.position, Quaternion.identity) as GameObject;
-			Debug.Log("firing");
 			yield return new WaitForSeconds(firingSpeed);
 		}
 
