@@ -1,0 +1,15 @@
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/UnityEngine.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/UnityEditor.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/Pathfinding.Ionic.Zip.Reduced.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/Pathfinding.JsonFx.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/Mono.Cecil.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/Unity.DataContract.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/aaronpiotrowski/UnityProjects/joyridejunior/Temp/bin/Debug/Mono.Cecil.Mdb.dll

@@ -50,6 +50,8 @@ public class Bullet : MonoBehaviour {
 				if(hit.transform.gameObject.layer == 8){
 					if(hit.transform.tag == targetTag){
 						GameObject expl = GameObject.Instantiate(Resources.Load("Prefabs/BulletExplosion"), transform.position, Quaternion.identity) as GameObject;
+
+						//make enemy take damage. should probably do inheritance instead of this.
 						if(hit.transform.GetComponent<Enemy>() != null){
 							hit.transform.GetComponent<Enemy>().takeDmg(5);
 						}

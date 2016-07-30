@@ -36,6 +36,9 @@ public class AILerp : MonoBehaviour {
 	 */
 	public Transform target;
 
+	//mine
+	public Vector3 myTarget;
+
 	/** Enables or disables searching for paths.
 	 * Setting this to false does not stop any active path requests from being calculated or stop it from continuing to follow the current path.
 	 * \see #canMove
@@ -210,7 +213,16 @@ public class AILerp : MonoBehaviour {
 
 		lastRepath = Time.time;
 		// This is where we should search to
-		var targetPosition = target.position;
+//		var targetPosition = target.position;
+
+		//my crap
+//		Vector3 tpos = target.position;
+//		Vector3 aroundTarget = new Vector3(tpos.x + Random.Range(-3, 3), tpos.y + Random.Range(-3, 3), tpos.z);
+//		var targetPosition = aroundTarget;
+
+		//my crap too
+		var targetPosition = myTarget;
+
 		var currentPosition = GetFeetPosition();
 
 		// If we are following a path, start searching from the node we will reach next
@@ -382,8 +394,15 @@ public class AILerp : MonoBehaviour {
 				}
 			}
 
+//			Rigidbody2D rb = tr.gameObject.GetComponent<Rigidbody2D>();
+//			Vector2 vec2Pos = new Vector2(nextPos.x, nextPos.y);
+//			Vector2 currPosVec = new Vector2(tr.position.x, tr.position.y);
+//			vec2Pos = vec2Pos - currPosVec;
 
-//			tr.gameObject.GetComponent<Rigidbody2D>().MovePosition(nextPos * Time.deltaTime / 100f);
+			//one or the other
+//			rb.velocity = Vector2.Lerp(rb.velocity, rb.velocity + vec2Pos, 100f * Time.deltaTime);
+//			rb.MovePosition(currPosVec + vec2Pos * Time.deltaTime * 10f);
+
 			tr.position = nextPos;
 		}
 	}
