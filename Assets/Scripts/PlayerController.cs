@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour {
 	GameObject player;
 	Rigidbody2D playerRB;
 	Vector2 reticleTarget;
-	bool weaponFiring;
+	bool weaponFiring = false;
 	float firingSpeed = 0.1f;
 
 	public MoveType moveType;
@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour {
 		playerRB = player.GetComponent<Rigidbody2D>();
 		moveType = MoveType.lerped;
 		reticleTarget = new Vector3();
-		weaponFiring = false;
 	}
 
 	void Update () {
@@ -58,13 +57,15 @@ public class PlayerController : MonoBehaviour {
 	{
 		while(true){
 			GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), player.transform.position, Quaternion.identity) as GameObject;
+			newBullet.GetComponent<Bullet>().setDirection(reticleTarget);
+			newBullet.GetComponent<Bullet>().targetTag = "Enemy";
+			newBullet.GetComponent<Bullet>().setColor(Color.yellow);
+	
+			newBullet.GetComponent<Bullet>().ready = true;
+
 			yield return new WaitForSeconds(firingSpeed);
 		}
 
-	}
-
-	public Vector3 getReticleTarget(){
-		return reticleTarget;
 	}
 
 	void updatePosition(){
