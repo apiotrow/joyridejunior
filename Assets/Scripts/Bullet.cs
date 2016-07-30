@@ -2,13 +2,12 @@
 using System.Collections;
 
 public class Bullet : MonoBehaviour {
-	public bool ready = false;
-	public Vector3 dir;
-	public string targetTag;
+	bool ready = false;
+	Vector3 dir;
+	string targetTag;
+	int numBounces = 0;
 
 	int maxBounces = 0;
-
-	int numBounces = 0;
 
 	void Start () {
 
@@ -22,9 +21,16 @@ public class Bullet : MonoBehaviour {
 		this.GetComponent<SpriteRenderer>().color = col;
 	}
 
+	public void setTargetTag(string tag){
+		targetTag = tag;
+	}
+
+	public void makeReady(){
+		ready = true;
+	}
+
 	void Update () {
 		if(ready){
-			
 			//move the bullet
 			transform.position = Vector3.MoveTowards(transform.position, dir, Time.deltaTime * 10f);
 

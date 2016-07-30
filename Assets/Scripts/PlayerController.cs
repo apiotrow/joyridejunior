@@ -50,7 +50,6 @@ public class PlayerController : MonoBehaviour {
 			weaponFiring = false;
 			StopCoroutine("fireWeapon");
 		}
-			
 	}
 
 	IEnumerator fireWeapon()
@@ -58,14 +57,12 @@ public class PlayerController : MonoBehaviour {
 		while(true){
 			GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), player.transform.position, Quaternion.identity) as GameObject;
 			newBullet.GetComponent<Bullet>().setDirection(reticleTarget);
-			newBullet.GetComponent<Bullet>().targetTag = "Enemy";
+			newBullet.GetComponent<Bullet>().setTargetTag("Enemy");
 			newBullet.GetComponent<Bullet>().setColor(Color.yellow);
-	
-			newBullet.GetComponent<Bullet>().ready = true;
+			newBullet.GetComponent<Bullet>().makeReady();
 
 			yield return new WaitForSeconds(firingSpeed);
 		}
-
 	}
 
 	void updatePosition(){

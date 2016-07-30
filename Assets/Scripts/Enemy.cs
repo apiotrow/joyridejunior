@@ -3,42 +3,69 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
-
 public class Enemy : AILerp {
 	Slider healthBar;
 	PlayerController pc;
 	bool weaponFiring = false;
 	List<string> tags;
+	float currHealth;
+	public SeekMode seekMode;
 
 	float firingSpeed = 2f;
-	int health = 30;
+	float maxHealth = 30f;
 	float aroundPlayerRange = 10f;
-
-	public SeekMode seekMode;
+	float minSpeed = 3;
+	float maxSpeed = 9;
 
 	public enum SeekMode{
 		ifNoLOSgotoLOS,
 		ifNoLOSgoToPlayer
 	}
-
-
-
+		
 	void Start(){
 		tags = new List<string>();
 
 		base.Start();
+		base.myTarget = computeNewDestination();
 		base.ForceSearchPath();
 		base.enableRotation = false;
 
 		healthBar = transform.Find("Canvas/Slider").GetComponent<Slider>() as Slider;
-		base.speed = Random.Range(3, 9);
+		base.speed = Random.Range(minSpeed, maxSpeed);
 		pc = GameObject.Find("Player").GetComponent<PlayerController>();
 		StartCoroutine("weaponFireDecide");	
 		StartCoroutine("moveDecide");
+		currHealth = maxHealth;
 	}
 
 	public override void OnTargetReached () {
-		base.ForceSearchPath();
+//		base.ForceSearchPath();
+	}
+
+	Vector3 computeNewDestination(){
+		//if no line of sight, calculate a new path
+		Vector3 tpos = target.position;
+
+		//find a place around the player so enemy doesn't sit on top of him
+		Vector3 aroundTarget = 
+			new Vector3(
+				tpos.x + Random.Range(-aroundPlayerRange, aroundPlayerRange), 
+				tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange), 
+				tpos.z);
+
+		//keep trying to find a place that isn't occupied by a wall or an enemy
+		RaycastHit2D hit = Physics2D.CircleCast(aroundTarget, 1f, Vector2.zero);
+		while(hit && (hit.transform.tag == "Wall" || hit.transform.tag == "Enemy")){
+			aroundTarget = 
+				new Vector3(
+					tpos.x + Random.Range(-aroundPlayerRange, aroundPlayerRange),
+					tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange),
+					tpos.z);
+			hit = Physics2D.CircleCast(aroundTarget, 1f, Vector2.zero);
+		}
+
+		//we found one
+		return aroundTarget;
 	}
 
 	IEnumerator moveDecide(){
@@ -63,29 +90,7 @@ public class Enemy : AILerp {
 					if(seekMode == SeekMode.ifNoLOSgotoLOS)
 						base.canMove = true;
 
-					//if no line of sight, calculate a new path
-					Vector3 tpos = target.position;
-
-					//find a place around the player so enemy doesn't sit on top of him
-					Vector3 aroundTarget = 
-						new Vector3(
-							tpos.x + Random.Range(-aroundPlayerRange, aroundPlayerRange), 
-							tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange), 
-							tpos.z);
-
-					//keep trying to find a place that isn't occupied by a wall or an enemy
-					RaycastHit2D hit = Physics2D.CircleCast(aroundTarget, 1f, Vector2.zero);
-					while(hit && (hit.transform.tag == "Wall" || hit.transform.tag == "Enemy")){
-						aroundTarget = 
-							new Vector3(
-								tpos.x + Random.Range(-aroundPlayerRange, aroundPlayerRange),
-								tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange),
-								tpos.z);
-						hit = Physics2D.CircleCast(aroundTarget, 1f, Vector2.zero);
-					}
-
-					//we found one, make it the target
-					base.myTarget = aroundTarget;
+					base.myTarget = computeNewDestination();
 
 					base.ForceSearchPath();
 				}
@@ -111,10 +116,10 @@ public class Enemy : AILerp {
 				if(tags.IndexOf("Player") == 0){
 					GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, Quaternion.identity) as GameObject;
 					newBullet.GetComponent<Bullet>().setDirection(pc.transform.position);
-					newBullet.GetComponent<Bullet>().targetTag = "Player";
+					newBullet.GetComponent<Bullet>().setTargetTag("Player");
 					newBullet.GetComponent<Bullet>().setColor(Color.red);
 
-					newBullet.GetComponent<Bullet>().ready = true;
+					newBullet.GetComponent<Bullet>().makeReady();
 				}
 			}
 			yield return new WaitForSeconds(firingSpeed);
@@ -125,20 +130,14 @@ public class Enemy : AILerp {
 	{
 		base.Update ();
 
-		healthBar.value = health / 100f;
+		healthBar.value = currHealth / maxHealth;
 
-		if(health <= 0f)
+		if(currHealth <= 0f)
 			Destroy(gameObject);
-
-
 	}
-
-
-
+		
 	public void takeDmg(int dmg){
-		health -= dmg;
+		currHealth -= dmg;
+		Debug.Log(currHealth / maxHealth);
 	}
-
-	
-
 }

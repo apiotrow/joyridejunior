@@ -212,15 +212,12 @@ public class AILerp : MonoBehaviour {
 		if (target == null) throw new System.InvalidOperationException("Target is null");
 
 		lastRepath = Time.time;
+
+
 		// This is where we should search to
 //		var targetPosition = target.position;
 
-		//my crap
-//		Vector3 tpos = target.position;
-//		Vector3 aroundTarget = new Vector3(tpos.x + Random.Range(-3, 3), tpos.y + Random.Range(-3, 3), tpos.z);
-//		var targetPosition = aroundTarget;
-
-		//my crap too
+		//AARON. i replaced the above line with this
 		var targetPosition = myTarget;
 
 		var currentPosition = GetFeetPosition();
