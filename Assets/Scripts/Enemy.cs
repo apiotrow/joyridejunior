@@ -31,7 +31,6 @@ public class Enemy : AILerp {
 
 	public void takeDmg(int dmg){
 		health -= dmg;
-		Debug.Log(health);
 	}
 
 }
