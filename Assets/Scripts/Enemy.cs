@@ -117,7 +117,7 @@ public class Enemy : AILerp {
 					GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, Quaternion.identity) as GameObject;
 					newBullet.GetComponent<Bullet>().setDirection(pc.transform.position);
 					newBullet.GetComponent<Bullet>().setTargetTag("Player");
-					newBullet.GetComponent<Bullet>().setColor(Color.red);
+					newBullet.GetComponent<Bullet>().setColor(Color.green);
 
 					newBullet.GetComponent<Bullet>().makeReady();
 				}
