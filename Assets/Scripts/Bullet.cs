@@ -29,6 +29,10 @@ public class Bullet : MonoBehaviour {
 		ready = true;
 	}
 
+	public void setMaxBounces(int num){
+		maxBounces = num;
+	}
+
 	void Update () {
 		if(ready){
 			//move the bullet

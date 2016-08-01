@@ -44,6 +44,16 @@ public class PlayerController : MonoBehaviour {
 		updateShooting();
 		healthBar.value = currHealth / maxHealth;
 		ammoText.text = currAmmo.ToString();
+
+		if(currHealth <= 0f){
+			killMe();
+		}
+	}
+
+	public void killMe(){
+		GetComponent<PlayerController>().enabled = false;
+		transform.Find("sprite").GetComponent<SpriteRenderer>().color = Color.red;
+		GameObject.Find("GameManager").GetComponent<GameManager>().showDeadText();
 	}
 
 	void updateShooting(){
@@ -76,6 +86,7 @@ public class PlayerController : MonoBehaviour {
 			newBullet.GetComponent<Bullet>().setDirection(reticleTarget);
 			newBullet.GetComponent<Bullet>().setTargetTag("Enemy");
 			newBullet.GetComponent<Bullet>().setColor(Color.yellow);
+			newBullet.GetComponent<Bullet>().setMaxBounces(2);
 			newBullet.GetComponent<Bullet>().makeReady();
 
 			currAmmo -= 1;

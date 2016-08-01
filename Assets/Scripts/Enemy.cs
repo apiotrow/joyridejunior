@@ -134,7 +134,6 @@ public class Enemy : AILerp {
 		healthBar.value = currHealth / maxHealth;
 
 		if(currHealth <= 0f){
-			
 			killMe();
 		}
 	}
