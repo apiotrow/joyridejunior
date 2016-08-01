@@ -163,10 +163,10 @@ public class Enemy : AILerp {
 					Resources.Load("Prefabs/Health"), 
 					transform.position, 
 					Quaternion.identity) as GameObject;
-		}else if(roll == 7 || roll == 8){
+		}else if(roll == 7){
 			GameObject goods = 
 				GameObject.Instantiate(
-					Resources.Load("Prefabs/Health"), 
+					Resources.Load("Prefabs/BouncyAmmo"), 
 					transform.position, 
 					Quaternion.identity) as GameObject;
 		}
