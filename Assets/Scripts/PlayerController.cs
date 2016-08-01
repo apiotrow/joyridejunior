@@ -16,6 +16,9 @@ public class PlayerController : MonoBehaviour {
 	int bouncesLeft;
 	int maxBounces;
 	public Slider bouncyAmmoBar;
+	Toggle infHealth;
+	Toggle infAmmo;
+	Toggle bouncyBullets;
 
 	public MoveType moveType;
 	public float movSpeed = 9f;
@@ -28,7 +31,8 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void takeDmg(int dmg){
-		currHealth -= dmg;
+		if(!infHealth.isOn)
+			currHealth -= dmg;
 	}
 
 	public void increaseHealth(int amt){
@@ -58,6 +62,10 @@ public class PlayerController : MonoBehaviour {
 
 		bouncyAmmoBar = GameObject.Find("BouncyAmmoBar").GetComponent<Slider>() as Slider;
 		bouncyAmmoBar.gameObject.SetActive(false);
+
+		infHealth = GameObject.Find("Toggle_InfHealth").GetComponent<Toggle>() as Toggle;
+		infAmmo = GameObject.Find("Toggle_InfAmmo").GetComponent<Toggle>() as Toggle;
+		bouncyBullets = GameObject.Find("Toggle_BouncyBullets").GetComponent<Toggle>() as Toggle;
 	}
 
 	void Update () {
@@ -121,12 +129,17 @@ public class PlayerController : MonoBehaviour {
 				newBullet.GetComponent<Bullet>().setColor(new Color32(255, 0, 216, 255)); //hot pink
 				newBullet.GetComponent<Bullet>().setMaxBounces(5);
 				bouncesLeft--;
+
 				bouncyAmmoBar.value = (float)bouncesLeft / (float)maxBounces;
+
 				if(bouncesLeft <= 0){
 					bouncyAmmo = false;
 					bouncyAmmoBar.gameObject.SetActive(false);
 					bouncesLeft = 0;
 				}
+			}else if(bouncyBullets.isOn){
+				newBullet.GetComponent<Bullet>().setColor(new Color32(255, 0, 216, 255)); //hot pink
+				newBullet.GetComponent<Bullet>().setMaxBounces(5);
 			}else{
 				newBullet.GetComponent<Bullet>().setColor(Color.yellow);
 				newBullet.GetComponent<Bullet>().setMaxBounces(0);
@@ -134,7 +147,8 @@ public class PlayerController : MonoBehaviour {
 			
 			newBullet.GetComponent<Bullet>().makeReady();
 
-			currAmmo -= 1;
+			if(!infAmmo.isOn)
+				currAmmo -= 1;
 
 			if(currAmmo <= 0){
 				currAmmo = 0;

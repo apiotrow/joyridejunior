@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	Text levelNumber;
 	int currLevel = -1;
 	GameObject deadText;
+	Text inputEnemies;
 
 	public List<Level> levelList;
 
@@ -40,6 +41,12 @@ public class GameManager : MonoBehaviour {
 		btn = GameObject.Find("Button_Reset").GetComponent("Button") as Button;
 		btn.onClick.AddListener(() => {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+		});
+
+		inputEnemies = GameObject.Find("Text_Enemies").GetComponent<Text>() as Text;
+		btn = GameObject.Find("Button_Spawn").GetComponent("Button") as Button;
+		btn.onClick.AddListener(() => {
+			spawnEnemiesByButton(int.Parse(inputEnemies.text));
 		});
 
 		levelNumber = GameObject.Find("LevelNumber").GetComponent<Text>() as Text;
@@ -72,6 +79,31 @@ public class GameManager : MonoBehaviour {
 		int minSpeed = levelList[currLevel].minEnemySpeed;
 		int maxSpeed = levelList[currLevel].maxEnemySpeed;
 
+
+		while(enemies.Count < enemiesAmt){
+			Pathfinding.NavGraph[] boo = GameObject.Find("A*").GetComponent<AstarPath>().astarData.graphs;
+
+			int randomNode = Random.Range(0, boo[0].CountNodes());
+
+			boo[0].GetNodes ((node) => {
+				if(node.NodeIndex == randomNode && node.Walkable == true){
+					var v = (Vector3)node.position;
+					GameObject newEnemy = GameObject.Instantiate(Resources.Load("Prefabs/enemy"), v, Quaternion.identity) as GameObject;
+					newEnemy.transform.parent = GameObject.Find("Enemies").transform;
+					newEnemy.GetComponent<Enemy>().setMinSpeed(minSpeed);
+					newEnemy.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
+					enemies.Add(newEnemy);
+					return false;
+				}
+				return true;
+			});
+		}
+	}
+
+	public void spawnEnemiesByButton(int amt){
+		int enemiesAmt = amt;
+		int minSpeed = 9;
+		int maxSpeed = 1;
 
 		while(enemies.Count < enemiesAmt){
 			Pathfinding.NavGraph[] boo = GameObject.Find("A*").GetComponent<AstarPath>().astarData.graphs;
