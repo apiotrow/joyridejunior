@@ -61,6 +61,9 @@ public class Bullet : MonoBehaviour {
 						if(hit.transform.GetComponent<Enemy>() != null){
 							hit.transform.GetComponent<Enemy>().takeDmg(5);
 						}
+						if(hit.transform.GetComponent<PlayerController>() != null){
+							hit.transform.GetComponent<PlayerController>().takeDmg(5);
+						}
 						Destroy(gameObject);
 					}else if(hit.transform.tag == "Wall"){
 

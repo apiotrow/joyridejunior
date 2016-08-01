@@ -8,13 +8,23 @@ public class PlayerController : MonoBehaviour {
 	Vector2 reticleTarget;
 	bool weaponFiring = false;
 	float firingSpeed = 0.1f;
+	float currHealth;
+	Slider healthBar;
+	Text ammoText;
+	float currAmmo;
 
 	public MoveType moveType;
 	public float movSpeed = 9f;
+	float maxHealth = 100f;
+	float maxAmmo = 300;
 
 	public enum MoveType {
 		lerped,
 		snapped
+	}
+
+	public void takeDmg(int dmg){
+		currHealth -= dmg;
 	}
 
 	void Start () {
@@ -22,11 +32,18 @@ public class PlayerController : MonoBehaviour {
 		playerRB = player.GetComponent<Rigidbody2D>();
 		moveType = MoveType.lerped;
 		reticleTarget = new Vector3();
+		healthBar = GameObject.Find("PlayerHealthBar").GetComponent<Slider>() as Slider;
+		ammoText = GameObject.Find("PlayerAmmo").GetComponent<Text>() as Text;
+		currHealth = maxHealth;
+		ammoText.text = maxAmmo.ToString();
+		currAmmo = maxAmmo;
 	}
 
 	void Update () {
 		updatePosition();
 		updateShooting();
+		healthBar.value = currHealth / maxHealth;
+		ammoText.text = currAmmo.ToString();
 	}
 
 	void updateShooting(){
@@ -54,12 +71,14 @@ public class PlayerController : MonoBehaviour {
 
 	IEnumerator fireWeapon()
 	{
-		while(true){
+		while(true && currAmmo > 0){
 			GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), player.transform.position, Quaternion.identity) as GameObject;
 			newBullet.GetComponent<Bullet>().setDirection(reticleTarget);
 			newBullet.GetComponent<Bullet>().setTargetTag("Enemy");
 			newBullet.GetComponent<Bullet>().setColor(Color.yellow);
 			newBullet.GetComponent<Bullet>().makeReady();
+
+			currAmmo -= 1;
 
 			yield return new WaitForSeconds(firingSpeed);
 		}

@@ -11,11 +11,11 @@ public class Enemy : AILerp {
 	float currHealth;
 	public SeekMode seekMode;
 
-	float firingSpeed = 2f;
+	float firingSpeed = 0.8f;
 	float maxHealth = 30f;
 	float aroundPlayerRange = 10f;
-	float minSpeed = 3;
-	float maxSpeed = 9;
+	float minSpeed = 1;
+	float maxSpeed = 6;
 
 	public enum SeekMode{
 		ifNoLOSgotoLOS,
@@ -138,6 +138,5 @@ public class Enemy : AILerp {
 		
 	public void takeDmg(int dmg){
 		currHealth -= dmg;
-		Debug.Log(currHealth / maxHealth);
 	}
 }
