@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class ButtonSetup : MonoBehaviour {
+public class GameManager : MonoBehaviour {
 	Vector3 testPos;
+	public List<GameObject> enemies;
+	bool placingNewEnemies;
 
 	void Start () {
 		Button btn;
@@ -13,35 +16,39 @@ public class ButtonSetup : MonoBehaviour {
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		});
 
-		StartCoroutine("nodes");
+		enemies = new List<GameObject>();
+
+		placeNewEnemies();
 	}
 
-	IEnumerator nodes()
-	{
-		while(true){
-			GameObject.Find("test").transform.position = testPos;
+	public void removeEnemy(GameObject enemy){
+		enemies.Remove(enemy);
+	}
 
+	public void placeNewEnemies(){
+		int enemiesAmt = 1;
+		for(int i = 0; i < enemiesAmt; i++){
 			Pathfinding.NavGraph[] boo = GameObject.Find("A*").GetComponent<AstarPath>().astarData.graphs;
 
 			int randomNode = Random.Range(0, boo[0].CountNodes());
 
 			boo[0].GetNodes ((node) => {
-				
-				print("trying" + node.NodeIndex + ", " + randomNode);
 				if(node.NodeIndex == randomNode && node.Walkable == true){
-					print("test change");
 					var v = (Vector3)node.position;
-					testPos = v;
+					GameObject newEnemy = GameObject.Instantiate(Resources.Load("Prefabs/enemy"), v, Quaternion.identity) as GameObject;
+					newEnemy.transform.parent = GameObject.Find("Enemies").transform;
+					enemies.Add(newEnemy);
 					return false;
 				}
 				return true;
 			});
-
-			yield return new WaitForSeconds(1f);
 		}
 	}
 
 	void Update () {
-
+		print(enemies.Count);
+		if(enemies.Count == 0){
+			placeNewEnemies();
+		}
 	}
 }

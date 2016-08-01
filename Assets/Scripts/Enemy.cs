@@ -26,6 +26,7 @@ public class Enemy : AILerp {
 		tags = new List<string>();
 
 		base.Start();
+		base.target = GameObject.Find("Player").transform;
 		base.myTarget = computeNewDestination();
 		base.ForceSearchPath();
 		base.enableRotation = false;
@@ -132,8 +133,15 @@ public class Enemy : AILerp {
 
 		healthBar.value = currHealth / maxHealth;
 
-		if(currHealth <= 0f)
-			Destroy(gameObject);
+		if(currHealth <= 0f){
+			
+			killMe();
+		}
+	}
+
+	public void killMe(){
+		GameObject.Find("GameManager").GetComponent<GameManager>().removeEnemy(gameObject);
+		Destroy(gameObject);
 	}
 		
 	public void takeDmg(int dmg){
