@@ -24,11 +24,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public struct Level {
-		public Level(int enemyCount){
+		public Level(int enemyCount, int minEnemySpeed, int maxEnemySpeed){
 			this.enemyCount = enemyCount;
+			this.minEnemySpeed = minEnemySpeed;
+			this.maxEnemySpeed = maxEnemySpeed;
 		}
 
 		public int enemyCount;
+		public int minEnemySpeed;
+		public int maxEnemySpeed;
 	};
 
 	void Start () {
@@ -41,9 +45,17 @@ public class GameManager : MonoBehaviour {
 		levelNumber = GameObject.Find("LevelNumber").GetComponent<Text>() as Text;
 
 		levelList = new List<Level>();
-		levelList.Add(new Level(9));
-		levelList.Add(new Level(2));
-//		levelList.Add(new Level(4));
+		levelList.Add(new Level(1, 2, 3));
+		levelList.Add(new Level(2, 2, 3));
+		levelList.Add(new Level(3, 2, 3));
+		levelList.Add(new Level(3, 4, 5));
+		levelList.Add(new Level(3, 5, 6));
+		levelList.Add(new Level(5, 1, 5));
+		levelList.Add(new Level(6, 3, 6));
+		levelList.Add(new Level(6, 5, 6));
+		levelList.Add(new Level(8, 3, 7));
+		levelList.Add(new Level(8, 5, 9));
+		levelList.Add(new Level(10, 5, 9));
 
 		enemies = new List<GameObject>();
 
@@ -57,6 +69,9 @@ public class GameManager : MonoBehaviour {
 	public void placeNewEnemies(){
 		currLevel++;
 		int enemiesAmt = levelList[currLevel].enemyCount;
+		int minSpeed = levelList[currLevel].minEnemySpeed;
+		int maxSpeed = levelList[currLevel].maxEnemySpeed;
+
 
 		while(enemies.Count < enemiesAmt){
 			Pathfinding.NavGraph[] boo = GameObject.Find("A*").GetComponent<AstarPath>().astarData.graphs;
@@ -68,6 +83,8 @@ public class GameManager : MonoBehaviour {
 					var v = (Vector3)node.position;
 					GameObject newEnemy = GameObject.Instantiate(Resources.Load("Prefabs/enemy"), v, Quaternion.identity) as GameObject;
 					newEnemy.transform.parent = GameObject.Find("Enemies").transform;
+					newEnemy.GetComponent<Enemy>().setMinSpeed(minSpeed);
+					newEnemy.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
 					enemies.Add(newEnemy);
 					return false;
 				}

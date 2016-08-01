@@ -12,6 +12,10 @@ public class PlayerController : MonoBehaviour {
 	Slider healthBar;
 	Text ammoText;
 	float currAmmo;
+	bool bouncyAmmo;
+	int bouncesLeft;
+	int maxBounces;
+	public Slider bouncyAmmoBar;
 
 	public MoveType moveType;
 	public float movSpeed = 9f;
@@ -27,6 +31,20 @@ public class PlayerController : MonoBehaviour {
 		currHealth -= dmg;
 	}
 
+	public void increaseHealth(int amt){
+		currHealth += amt;
+		if(currHealth > maxHealth){
+			currHealth = maxHealth;
+		}
+	}
+
+	public void increaseAmmo(int amt){
+		currAmmo+= amt;
+
+		if(currAmmo >= maxAmmo)
+			currAmmo = maxAmmo;
+	}
+
 	void Start () {
 		player = GameObject.Find("Player");
 		playerRB = player.GetComponent<Rigidbody2D>();
@@ -37,13 +55,18 @@ public class PlayerController : MonoBehaviour {
 		currHealth = maxHealth;
 		ammoText.text = maxAmmo.ToString();
 		currAmmo = maxAmmo;
+
+		bouncyAmmoBar = GameObject.Find("BouncyAmmoBar").GetComponent<Slider>() as Slider;
+		bouncyAmmoBar.gameObject.SetActive(false);
 	}
 
 	void Update () {
 		updatePosition();
 		updateShooting();
 		healthBar.value = currHealth / maxHealth;
-		ammoText.text = currAmmo.ToString();
+
+		string ammoString = currAmmo.ToString() + " / " + maxAmmo.ToString();
+		ammoText.text = ammoString;
 
 		if(currHealth <= 0f){
 			killMe();
@@ -79,17 +102,43 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	public void enableBouncyAmmo(int numRounds){
+		bouncyAmmoBar.gameObject.SetActive(true);
+		bouncyAmmo = true;
+		maxBounces = numRounds;
+		bouncesLeft = numRounds;
+		bouncyAmmoBar.value = (float)bouncesLeft / (float)maxBounces;
+	}
+
 	IEnumerator fireWeapon()
 	{
 		while(true && currAmmo > 0){
 			GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), player.transform.position, Quaternion.identity) as GameObject;
 			newBullet.GetComponent<Bullet>().setDirection(reticleTarget);
 			newBullet.GetComponent<Bullet>().setTargetTag("Enemy");
-			newBullet.GetComponent<Bullet>().setColor(Color.yellow);
-			newBullet.GetComponent<Bullet>().setMaxBounces(2);
+
+			if(bouncyAmmo){
+				newBullet.GetComponent<Bullet>().setColor(new Color32(255, 0, 216, 255)); //hot pink
+				newBullet.GetComponent<Bullet>().setMaxBounces(5);
+				bouncesLeft--;
+				bouncyAmmoBar.value = (float)bouncesLeft / (float)maxBounces;
+				if(bouncesLeft <= 0){
+					bouncyAmmo = false;
+					bouncyAmmoBar.gameObject.SetActive(false);
+					bouncesLeft = 0;
+				}
+			}else{
+				newBullet.GetComponent<Bullet>().setColor(Color.yellow);
+				newBullet.GetComponent<Bullet>().setMaxBounces(0);
+			}
+			
 			newBullet.GetComponent<Bullet>().makeReady();
 
 			currAmmo -= 1;
+
+			if(currAmmo <= 0){
+				currAmmo = 0;
+			}
 
 			yield return new WaitForSeconds(firingSpeed);
 		}

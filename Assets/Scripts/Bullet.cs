@@ -21,6 +21,10 @@ public class Bullet : MonoBehaviour {
 		this.GetComponent<SpriteRenderer>().color = col;
 	}
 
+	public void setColor(Color32 col){
+		this.GetComponent<SpriteRenderer>().color = col;
+	}
+
 	public void setTargetTag(string tag){
 		targetTag = tag;
 	}

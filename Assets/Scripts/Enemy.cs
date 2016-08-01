@@ -21,6 +21,14 @@ public class Enemy : AILerp {
 		ifNoLOSgotoLOS,
 		ifNoLOSgoToPlayer
 	}
+
+	public void setMinSpeed(int speed){
+		minSpeed = speed;
+	}
+
+	public void setMaxSpeed(int speed){
+		maxSpeed = speed;
+	}
 		
 	void Start(){
 		tags = new List<string>();
@@ -140,6 +148,29 @@ public class Enemy : AILerp {
 
 	public void killMe(){
 		GameObject.Find("GameManager").GetComponent<GameManager>().removeEnemy(gameObject);
+
+		int roll = Random.Range(0,10);
+
+		if(roll == 1 || roll == 2){
+			GameObject goods = 
+				GameObject.Instantiate(
+					Resources.Load("Prefabs/Ammo"), 
+					transform.position, 
+					Quaternion.identity) as GameObject;
+		}else if(roll == 2 || roll == 3){
+			GameObject goods = 
+				GameObject.Instantiate(
+					Resources.Load("Prefabs/Health"), 
+					transform.position, 
+					Quaternion.identity) as GameObject;
+		}else if(roll == 4){
+			GameObject goods = 
+				GameObject.Instantiate(
+					Resources.Load("Prefabs/Health"), 
+					transform.position, 
+					Quaternion.identity) as GameObject;
+		}
+
 		Destroy(gameObject);
 	}
 		
