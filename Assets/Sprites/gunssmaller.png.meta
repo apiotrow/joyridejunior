@@ -1,0 +1,247 @@
+fileFormatVersion: 2
+guid: 03a6b32e77b444e82854799503e31593
+timeCreated: 1470128925
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: gunssmaller_0
+    21300002: gunssmaller_1
+    21300004: gunssmaller_2
+    21300006: gunssmaller_3
+    21300008: gunssmaller_4
+    21300010: gunssmaller_5
+    21300012: gunssmaller_6
+    21300014: gunssmaller_7
+    21300016: gunssmaller_8
+    21300018: gunssmaller_9
+    21300020: gunssmaller_10
+    21300022: gunssmaller_11
+    21300024: gunssmaller_12
+    21300026: gunssmaller_13
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: gunssmaller_0
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 117
+        width: 20
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_1
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 86
+        width: 35
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 2.5, y: -1}
+        - {x: -17.5, y: -7}
+        - {x: -17.5, y: -16}
+        - {x: -16.5, y: -17}
+        - {x: -4.5, y: -19}
+        - {x: 16.5, y: -19}
+        - {x: 17.5, y: -17}
+        - {x: 17.5, y: -1}
+      - - {x: -11.5, y: 8}
+        - {x: -17.5, y: 6}
+        - {x: -17.5, y: 1}
+        - {x: -14.5, y: -1}
+        - {x: -1.5, y: -1}
+        - {x: 13.5, y: 1}
+        - {x: 15.5, y: 3}
+        - {x: 14.5, y: 7}
+        - {x: 6.5, y: 8}
+      - - {x: -17.5, y: 19}
+        - {x: -17.5, y: 15}
+        - {x: 14.5, y: 15}
+        - {x: 16.5, y: 16}
+        - {x: 16.5, y: 19}
+    - name: gunssmaller_2
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 103
+        width: 26
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_3
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 106
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_4
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 90
+        width: 22
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_5
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 73
+        width: 33
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_6
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 47
+        width: 25
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_7
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 75
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_8
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 56
+        width: 32
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_9
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 45
+        width: 31
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_10
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 30
+        width: 31
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_11
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 10
+        width: 50
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_12
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 15
+        width: 26
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gunssmaller_13
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 18
+        width: 23
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,518 @@
+fileFormatVersion: 2
+guid: ad4a7e74dca514837a7b7c0ae778ea48
+timeCreated: 1470405739
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: joyride_environment_objects (1)_0
+    21300002: joyride_environment_objects (1)_1
+    21300004: joyride_environment_objects (1)_2
+    21300006: joyride_environment_objects (1)_3
+    21300008: joyride_environment_objects (1)_4
+    21300010: joyride_environment_objects (1)_5
+    21300012: joyride_environment_objects (1)_6
+    21300014: joyride_environment_objects (1)_7
+    21300016: joyride_environment_objects (1)_8
+    21300018: joyride_environment_objects (1)_9
+    21300020: joyride_environment_objects (1)_10
+    21300022: joyride_environment_objects (1)_11
+    21300024: joyride_environment_objects (1)_12
+    21300026: joyride_environment_objects (1)_13
+    21300028: joyride_environment_objects (1)_14
+    21300030: joyride_environment_objects (1)_15
+    21300032: joyride_environment_objects (1)_16
+    21300034: joyride_environment_objects (1)_17
+    21300036: joyride_environment_objects (1)_18
+    21300038: joyride_environment_objects (1)_19
+    21300040: joyride_environment_objects (1)_20
+    21300042: joyride_environment_objects (1)_21
+    21300044: joyride_environment_objects (1)_22
+    21300046: joyride_environment_objects (1)_23
+    21300048: joyride_environment_objects (1)_24
+    21300050: joyride_environment_objects (1)_25
+    21300052: joyride_environment_objects (1)_26
+    21300054: joyride_environment_objects (1)_27
+    21300056: joyride_environment_objects (1)_28
+    21300058: joyride_environment_objects (1)_29
+    21300060: joyride_environment_objects (1)_30
+    21300062: joyride_environment_objects (1)_31
+    21300064: joyride_environment_objects (1)_32
+    21300066: joyride_environment_objects (1)_33
+    21300068: joyride_environment_objects (1)_34
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: joyride_environment_objects (1)_0
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 324
+        width: 48
+        height: 37
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -24, y: 18.5}
+        - {x: -24, y: -18.5}
+        - {x: 24, y: -18.5}
+        - {x: 24, y: 18.5}
+    - name: joyride_environment_objects (1)_1
+      rect:
+        serializedVersion: 2
+        x: 92
+        y: 319
+        width: 8
+        height: 47
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_2
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 338
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_3
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 338
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_4
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 339
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_5
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 339
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_6
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 307
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_7
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 307
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_8
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 307
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_9
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 307
+        width: 52
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_10
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 288
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_11
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 291
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_12
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 288
+        width: 17
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_13
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 291
+        width: 7
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_14
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 288
+        width: 18
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_15
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 265
+        width: 59
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_16
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 270
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_17
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 269
+        width: 11
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_18
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 269
+        width: 5
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_19
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 266
+        width: 19
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_20
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 266
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_21
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 268
+        width: 33
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_22
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 219
+        width: 22
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_23
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 239
+        width: 37
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_24
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 241
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_25
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 191
+        width: 43
+        height: 36
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 6.5, y: 18}
+        - {x: -16.5, y: 18}
+        - {x: -21.5, y: 14}
+        - {x: -21.5, y: -18}
+        - {x: 21.5, y: -18}
+        - {x: 21.5, y: -8}
+        - {x: 18.5, y: 4}
+    - name: joyride_environment_objects (1)_26
+      rect:
+        serializedVersion: 2
+        x: 313
+        y: 241
+        width: 12
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_27
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 217
+        width: 62
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_28
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 222
+        width: 20
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_29
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 196
+        width: 43
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_30
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 198
+        width: 20
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_environment_objects (1)_31
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 106
+        width: 131
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27.5, y: 36}
+        - {x: -56.5, y: 21}
+        - {x: -65.5, y: -1}
+        - {x: -65.5, y: -36}
+        - {x: 51.5, y: -36}
+        - {x: 65.5, y: -30}
+        - {x: 65.5, y: 35}
+        - {x: 62.5, y: 36}
+    - name: joyride_environment_objects (1)_32
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 107
+        width: 131
+        height: 72
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -27.5, y: 36}
+        - {x: -56.5, y: 21}
+        - {x: -65.5, y: -1}
+        - {x: -65.5, y: -36}
+        - {x: 51.5, y: -36}
+        - {x: 65.5, y: -30}
+        - {x: 65.5, y: 35}
+        - {x: 62.5, y: 36}
+    - name: joyride_environment_objects (1)_33
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 13
+        width: 131
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -33.5, y: 39}
+        - {x: -50.5, y: 24}
+        - {x: -65.5, y: 9}
+        - {x: -65.5, y: -39}
+        - {x: 53.5, y: -39}
+        - {x: 65.5, y: -35}
+        - {x: 65.5, y: 39}
+    - name: joyride_environment_objects (1)_34
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 13
+        width: 131
+        height: 78
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -33.5, y: 39}
+        - {x: -50.5, y: 24}
+        - {x: -65.5, y: 9}
+        - {x: -65.5, y: -39}
+        - {x: 53.5, y: -39}
+        - {x: 65.5, y: -35}
+        - {x: 65.5, y: 39}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

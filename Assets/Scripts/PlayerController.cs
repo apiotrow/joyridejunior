@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 	Toggle bouncyBullets;
 
 	public MoveType moveType;
-	public float movSpeed = 9f;
+	public float movSpeed = 4f;
 	float maxHealth = 100f;
 	float maxAmmo = 300;
 
