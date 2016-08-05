@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour {
 	int currLevel = -1;
 	GameObject deadText;
 	Text inputEnemies;
+	public bool nightMode;
+	Toggle nightModeToggle;
 
 	public List<Level> levelList;
 
@@ -67,6 +69,9 @@ public class GameManager : MonoBehaviour {
 		enemies = new List<GameObject>();
 
 		placeNewEnemies();
+
+		nightModeToggle = GameObject.Find("Toggle_Nightmode").GetComponent<Toggle>() as Toggle;
+		nightMode = false;
 	}
 
 	public void removeEnemy(GameObject enemy){
@@ -133,5 +138,7 @@ public class GameManager : MonoBehaviour {
 
 		//increment, because internal level starts at 0
 		levelNumber.text = (currLevel + 1).ToString();
+
+		nightMode = nightModeToggle.isOn;
 	}
 }

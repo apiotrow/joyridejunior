@@ -153,7 +153,7 @@ public class Enemy : AILerp {
 			killMe();
 		}
 			
-
+		//makes enemy go idle if standing still
 		if(transform.position == base.myTarget){
 			anim.SetBool("isidle", true);
 			anim.SetBool("isrunning", false);

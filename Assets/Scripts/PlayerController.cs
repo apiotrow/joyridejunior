@@ -19,8 +19,10 @@ public class PlayerController : MonoBehaviour {
 	Toggle infHealth;
 	Toggle infAmmo;
 	Toggle bouncyBullets;
-	public Animator anim;
+	Animator anim;
 	SpriteRenderer spriteRend;
+	GameObject gunlight;
+	GameObject worldLight;
 
 	public MoveType moveType;
 	public float movSpeed = 4f;
@@ -68,9 +70,13 @@ public class PlayerController : MonoBehaviour {
 		infHealth = GameObject.Find("Toggle_InfHealth").GetComponent<Toggle>() as Toggle;
 		infAmmo = GameObject.Find("Toggle_InfAmmo").GetComponent<Toggle>() as Toggle;
 		bouncyBullets = GameObject.Find("Toggle_BouncyBullets").GetComponent<Toggle>() as Toggle;
+		infHealth = GameObject.Find("Toggle_InfHealth").GetComponent<Toggle>() as Toggle;
 
 		anim = transform.Find("sprite").GetComponent<Animator>();
 		spriteRend = transform.Find("sprite").GetComponent<SpriteRenderer>();
+
+		gunlight = transform.Find("gunlight").gameObject;
+		worldLight = GameObject.Find("light_world");
 	}
 
 	void Update () {
@@ -83,6 +89,14 @@ public class PlayerController : MonoBehaviour {
 
 		if(currHealth <= 0f){
 			killMe();
+		}
+
+		if(GameObject.Find("GameManager").GetComponent<GameManager>().nightMode == true){
+			worldLight.SetActive(false);
+			gunlight.transform.Find("light_gunlight").gameObject.SetActive(true);
+		}else{
+			worldLight.SetActive(true);
+			gunlight.transform.Find("light_gunlight").gameObject.SetActive(false);
 		}
 	}
 
@@ -113,6 +127,10 @@ public class PlayerController : MonoBehaviour {
 			weaponFiring = false;
 			StopCoroutine("fireWeapon");
 		}
+
+		Vector3 lightLookAt = ray.origin;
+		lightLookAt.z = 0f;
+		gunlight.transform.forward = lightLookAt - transform.position;
 	}
 
 	public void enableBouncyAmmo(int numRounds){
