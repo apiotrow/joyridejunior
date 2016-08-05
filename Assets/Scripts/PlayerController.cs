@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour {
 	Toggle infHealth;
 	Toggle infAmmo;
 	Toggle bouncyBullets;
+	public Animator anim;
+	SpriteRenderer spriteRend;
 
 	public MoveType moveType;
 	public float movSpeed = 4f;
@@ -66,6 +68,9 @@ public class PlayerController : MonoBehaviour {
 		infHealth = GameObject.Find("Toggle_InfHealth").GetComponent<Toggle>() as Toggle;
 		infAmmo = GameObject.Find("Toggle_InfAmmo").GetComponent<Toggle>() as Toggle;
 		bouncyBullets = GameObject.Find("Toggle_BouncyBullets").GetComponent<Toggle>() as Toggle;
+
+		anim = transform.Find("sprite").GetComponent<Animator>();
+		spriteRend = transform.Find("sprite").GetComponent<SpriteRenderer>();
 	}
 
 	void Update () {
@@ -180,20 +185,35 @@ public class PlayerController : MonoBehaviour {
 		Vector2 player2Dpos = new Vector2(player.transform.position.x, player.transform.position.y);
 		Vector2 newPos = Vector2.zero;
 
+		if(!moveUp && !moveRight && !moveLeft && !moveDown){
+			anim.SetBool("isidle", true);
+			anim.SetBool("isrunning", false);
+		}
+		
 		if(moveUp){
 			newPos.y += movSpeed;
+			anim.SetBool("isidle", false);
+			anim.SetBool("isrunning", true);
 		}
 
 		if(moveDown){
 			newPos.y -= movSpeed;
+			anim.SetBool("isidle", false);
+			anim.SetBool("isrunning", true);
 		}
 
 		if(moveLeft){
 			newPos.x -= movSpeed;
+			spriteRend.flipX = true;
+			anim.SetBool("isidle", false);
+			anim.SetBool("isrunning", true);
 		}
 
 		if(moveRight){
 			newPos.x += movSpeed;
+			spriteRend.flipX = false;
+			anim.SetBool("isidle", false);
+			anim.SetBool("isrunning", true);
 		}
 
 		if(moveType == MoveType.snapped){

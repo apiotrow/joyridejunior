@@ -10,6 +10,9 @@ public class Enemy : AILerp {
 	List<string> tags;
 	float currHealth;
 	public SeekMode seekMode;
+	public Animator anim;
+	SpriteRenderer spriteRend;
+	float lastX;
 
 	float firingSpeed = 0.8f;
 	float maxHealth = 30f;
@@ -45,6 +48,10 @@ public class Enemy : AILerp {
 		StartCoroutine("weaponFireDecide");	
 		StartCoroutine("moveDecide");
 		currHealth = maxHealth;
+
+		anim = GetComponent<Animator>();
+		spriteRend = GetComponent<SpriteRenderer>();
+		lastX = transform.position.x;
 	}
 
 	public override void OnTargetReached () {
@@ -101,6 +108,7 @@ public class Enemy : AILerp {
 
 					base.myTarget = computeNewDestination();
 
+					//FIX: this keeps getting called even after a spot has been found
 					base.ForceSearchPath();
 				}
 			}
@@ -144,6 +152,37 @@ public class Enemy : AILerp {
 		if(currHealth <= 0f){
 			killMe();
 		}
+			
+
+		if(transform.position == base.myTarget){
+			anim.SetBool("isidle", true);
+			anim.SetBool("isrunning", false);
+
+			//we're standing, so set sprite direction
+			//based on where player is in relation
+			//to us
+			if(pc.transform.position.x < this.transform.position.x){
+				spriteRend.flipX = true;
+			}else{
+				spriteRend.flipX = false;
+			}
+
+		}else{
+			anim.SetBool("isidle", false);
+			anim.SetBool("isrunning", true);
+
+			//we're walking, so set sprite direction
+			//based on last position
+			if(lastX > this.transform.position.x){
+				spriteRend.flipX = true;
+			}else{
+				spriteRend.flipX = false;
+			}
+		}
+
+
+
+		lastX = transform.position.x;
 	}
 
 	public void killMe(){
