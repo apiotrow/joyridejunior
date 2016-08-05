@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
 	public bool nightMode;
 	Toggle nightModeToggle;
 
+	PlayerController pc;
+
 	public List<Level> levelList;
 
 	void Awake(){
@@ -72,6 +74,8 @@ public class GameManager : MonoBehaviour {
 
 		nightModeToggle = GameObject.Find("Toggle_Nightmode").GetComponent<Toggle>() as Toggle;
 		nightMode = false;
+
+		pc = GameObject.Find("Player").GetComponent<PlayerController>();
 	}
 
 	public void removeEnemy(GameObject enemy){

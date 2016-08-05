@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 	GameObject player;
 	Rigidbody2D playerRB;
-	Vector2 reticleTarget;
+	public Vector2 reticleTarget;
 	bool weaponFiring = false;
 	float firingSpeed = 0.1f;
 	float currHealth;
@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 	SpriteRenderer spriteRend;
 	GameObject gunlight;
 	GameObject worldLight;
+	GameObject playerCam;
 
 	public MoveType moveType;
 	public float movSpeed = 4f;
@@ -77,11 +78,15 @@ public class PlayerController : MonoBehaviour {
 
 		gunlight = transform.Find("gunlight").gameObject;
 		worldLight = GameObject.Find("light_world");
+
+		playerCam = transform.Find("playerCam").gameObject;
 	}
 
 	void Update () {
 		updatePosition();
 		updateShooting();
+		updateCam();
+
 		healthBar.value = currHealth / maxHealth;
 
 		string ammoString = currAmmo.ToString() + " / " + maxAmmo.ToString();
@@ -91,6 +96,7 @@ public class PlayerController : MonoBehaviour {
 			killMe();
 		}
 
+		//updating lighting settings
 		if(GameObject.Find("GameManager").GetComponent<GameManager>().nightMode == true){
 			worldLight.SetActive(false);
 			gunlight.transform.Find("light_gunlight").gameObject.SetActive(true);
@@ -98,6 +104,21 @@ public class PlayerController : MonoBehaviour {
 			worldLight.SetActive(true);
 			gunlight.transform.Find("light_gunlight").gameObject.SetActive(false);
 		}
+	}
+
+	void updateCam(){
+		Vector3 newCamPos = new Vector3(0f, 0f, playerCam.transform.position.z);
+
+		//make camera shift slightly in direction we're aiming
+		float screenMidX = Screen.width / 2f;
+		float screenMidY = Screen.height / 2f;
+		float camX = (Input.mousePosition.x - screenMidX) / screenMidX;
+		float camY = (Input.mousePosition.y - screenMidY) / screenMidY;
+
+		newCamPos.x += camX;
+		newCamPos.y += camY;
+
+		playerCam.transform.localPosition = newCamPos;
 	}
 
 	public void killMe(){
@@ -112,13 +133,14 @@ public class PlayerController : MonoBehaviour {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 		Vector3 screenPos = Camera.main.WorldToScreenPoint(ray.origin);
 
+		reticleTarget = ray.origin;
+
 		if (Input.GetMouseButton(0)
 			&& screenPos.x > 0 
 			&& screenPos.x < Screen.width
 			&& screenPos.y > 0 
 			&& screenPos.y < Screen.height
 		){
-			reticleTarget = ray.origin;
 			if(weaponFiring == false){
 				StartCoroutine("fireWeapon");
 				weaponFiring = true;
@@ -222,16 +244,21 @@ public class PlayerController : MonoBehaviour {
 
 		if(moveLeft){
 			newPos.x -= movSpeed;
-			spriteRend.flipX = true;
 			anim.SetBool("isidle", false);
 			anim.SetBool("isrunning", true);
 		}
 
 		if(moveRight){
 			newPos.x += movSpeed;
-			spriteRend.flipX = false;
 			anim.SetBool("isidle", false);
 			anim.SetBool("isrunning", true);
+		}
+
+		//flip sprite in direction we're aiming
+		if(reticleTarget.x < transform.position.x){
+			spriteRend.flipX = true;
+		}else{
+			spriteRend.flipX = false;
 		}
 
 		if(moveType == MoveType.snapped){
@@ -240,4 +267,6 @@ public class PlayerController : MonoBehaviour {
 			playerRB.velocity = Vector2.Lerp(playerRB.velocity, playerRB.velocity + newPos, 10f * Time.deltaTime);
 		}
 	}
+
+
 }
