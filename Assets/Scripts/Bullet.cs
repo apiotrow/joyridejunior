@@ -57,6 +57,8 @@ public class Bullet : MonoBehaviour {
 	}
 
 	void checkForCollision(){
+		//CHANGE: probably something more efficient or sense-making that circlecast here. but
+		//it works
 		RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.1f, Vector2.zero);
 		if(hit){
 			//layer 8 is "hittable" layer

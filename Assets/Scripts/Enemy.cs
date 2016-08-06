@@ -118,34 +118,32 @@ public class Enemy : AILerp {
 	Vector3 computeNewDestination(float aroundPlayerRange){
 		Vector3 tpos = target.position;
 
-		Vector2 aroundTarget2 = 
+		Vector2 aroundTarget = 
 			new Vector2(
 				tpos.x + Random.Range(-aroundPlayerRange, aroundPlayerRange), 
 				tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange));
 
 		//keep trying to find a place that isn't occupied by a wall or an enemy
-		Collider2D[] hit = Physics2D.OverlapCircleAll(aroundTarget2, 1f);
+		Collider2D[] hit = Physics2D.OverlapCircleAll(aroundTarget, 1f);
 
 		int numTries = 0; //prevent infinite loop
 		while(hit.Length > 0 && numTries < 10){
-			tags.Clear();
-
+			
 			for(int i = 0; i < hit.Length; i++){
-				tags.Add(hit[i].tag);
-				print(hit[i].tag);
-			}
-
-			if(tags.Contains("Wall") || tags.Contains("Enemy")){
-				aroundTarget2 = 
-					new Vector2(
-						tpos.x + Random.Range(-aroundPlayerRange, aroundPlayerRange),
-						tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange));
-				hit = Physics2D.OverlapCircleAll(aroundTarget2, 1f);
+				//if the tile isn't walkable, try another one
+				if(hit[i].tag == "Wall" || hit[i].tag == "Enemy"){
+					aroundTarget = 
+						new Vector2(
+							tpos.x + Random.Range(-aroundPlayerRange, aroundPlayerRange),
+							tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange));
+					hit = Physics2D.OverlapCircleAll(aroundTarget, 1f);
+					break;
+				}
 			}
 			numTries++;
 		}
 
-		return aroundTarget2;
+		return aroundTarget;
 	}
 
 	//continually check LOS and compute new destination if LOS is lost

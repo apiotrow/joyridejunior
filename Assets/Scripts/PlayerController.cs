@@ -15,15 +15,23 @@ public class PlayerController : MonoBehaviour {
 	bool bouncyAmmo;
 	int bouncesLeft;
 	int maxBounces;
-	public Slider bouncyAmmoBar;
+	Slider bouncyAmmoBar;
 	Toggle infHealth;
 	Toggle infAmmo;
 	Toggle bouncyBullets;
 	Animator anim;
 	SpriteRenderer spriteRend;
-	GameObject gunlight;
+	GameObject handDirection;
+	public GameObject light_gunlight;
 	GameObject worldLight;
 	GameObject playerCam;
+
+	GameObject melee;
+	GameObject sheath_R;
+	GameObject sheath_L;
+	GameObject sheathedMelee;
+	GameObject sheathedGun;
+	GameObject gun;
 
 	public MoveType moveType;
 	public float movSpeed = 4f;
@@ -76,10 +84,17 @@ public class PlayerController : MonoBehaviour {
 		anim = transform.Find("sprite").GetComponent<Animator>();
 		spriteRend = transform.Find("sprite").GetComponent<SpriteRenderer>();
 
-		gunlight = transform.Find("gunlight").gameObject;
+		handDirection = transform.Find("gunlight").gameObject;
 		worldLight = GameObject.Find("light_world");
 
 		playerCam = transform.Find("playerCam").gameObject;
+
+		melee = transform.Find("gunlight/melee").gameObject;
+		sheath_R = transform.Find("sheath_R").gameObject;
+		sheath_L = transform.Find("sheath_L").gameObject;
+
+		gun = transform.Find("gunlight/gun").gameObject;
+		gun.SetActive(false);
 	}
 
 	void Update () {
@@ -99,10 +114,10 @@ public class PlayerController : MonoBehaviour {
 		//updating lighting settings
 		if(GameObject.Find("GameManager").GetComponent<GameManager>().nightMode == true){
 			worldLight.SetActive(false);
-			gunlight.transform.Find("light_gunlight").gameObject.SetActive(true);
+			light_gunlight.SetActive(true);
 		}else{
 			worldLight.SetActive(true);
-			gunlight.transform.Find("light_gunlight").gameObject.SetActive(false);
+			light_gunlight.SetActive(false);
 		}
 	}
 
@@ -137,6 +152,9 @@ public class PlayerController : MonoBehaviour {
 
 		//handle ranged and melee attacking via right/left mouse buttons
 		if (Input.GetMouseButton(0)){
+			melee.GetComponent<Animator>().SetBool("isSheathed", true);
+			gun.SetActive(true);
+
 			if(screenPos.x > 0 
 				&& screenPos.x < Screen.width
 				&& screenPos.y > 0 
@@ -150,22 +168,23 @@ public class PlayerController : MonoBehaviour {
 				StopCoroutine("fireWeapon");
 			}
 		}else if(Input.GetMouseButtonDown(1)){
+			melee.GetComponent<Animator>().SetBool("isSheathed", false);
+			melee.GetComponent<Animator>().SetTrigger("melee");
+			gun.SetActive(false);
+
 			//melee distance from player, in direction of reticle
 			Vector3 hitLocation = 
 				transform.position + (new Vector3(reticleTarget.x, reticleTarget.y, 0f) - transform.position).normalized * 1f;
 
-			//coule be used to place mines
-			GameObject g = GameObject.Instantiate(Resources.Load("Prefabs/dirt4"),hitLocation, Quaternion.identity) as GameObject;
-
-			//check in a radius around hit area for enemies.
-			//if hit one, make it take damage
-			RaycastHit2D hit = Physics2D.CircleCast(hitLocation, 2f, Vector2.zero);
-			if(hit && (hit.transform.tag == "Enemy")){
-				if(hit.transform.GetComponent<Enemy>() != null){
-					hit.transform.GetComponent<Enemy>().takeDmg(5);
+			Collider2D[] hit = Physics2D.OverlapCircleAll(hitLocation, 0.5f);
+			if(hit.Length > 0){
+				for(int i = 0; i < hit.Length; i++){
+					if(hit[i].transform.GetComponent<Enemy>() != null){
+						hit[i].transform.GetComponent<Enemy>().takeDmg(5);
+						break;
+					}
 				}
 			}
-
 		}else{
 			weaponFiring = false;
 			StopCoroutine("fireWeapon");
@@ -173,7 +192,7 @@ public class PlayerController : MonoBehaviour {
 
 		Vector3 lightLookAt = ray.origin;
 		lightLookAt.z = 0f;
-		gunlight.transform.forward = lightLookAt - transform.position;
+		handDirection.transform.forward = lightLookAt - transform.position;
 	}
 
 	public void enableBouncyAmmo(int numRounds){
@@ -275,12 +294,37 @@ public class PlayerController : MonoBehaviour {
 			anim.SetBool("isrunning", true);
 		}
 
-		//flip sprite in direction we're aiming
+		//flip sprite in direction we're aiming.
+		//also flip object that holds sheathed weapons (strapped to back)
 		if(reticleTarget.x < transform.position.x){
+			sheath_L.SetActive(true);
+			sheath_R.SetActive(false);
+
+			if(melee.GetComponent<Animator>().GetBool("isSheathed")){
+				sheath_L.transform.Find("melee").gameObject.SetActive(true);
+				sheath_L.transform.Find("gun").gameObject.SetActive(false);
+			}else{
+				sheath_L.transform.Find("melee").gameObject.SetActive(false);
+				sheath_L.transform.Find("gun").gameObject.SetActive(true);
+			}
+
 			spriteRend.flipX = true;
 		}else{
+			sheath_L.SetActive(false);
+			sheath_R.SetActive(true);
+
+			if(melee.GetComponent<Animator>().GetBool("isSheathed")){
+				sheath_R.transform.Find("melee").gameObject.SetActive(true);
+				sheath_R.transform.Find("gun").gameObject.SetActive(false);
+			}else{
+				sheath_R.transform.Find("melee").gameObject.SetActive(false);
+				sheath_R.transform.Find("gun").gameObject.SetActive(true);
+			}
+
 			spriteRend.flipX = false;
 		}
+
+
 
 		if(moveType == MoveType.snapped){
 			playerRB.MovePosition(player2Dpos + newPos * Time.deltaTime);
@@ -288,6 +332,4 @@ public class PlayerController : MonoBehaviour {
 			playerRB.velocity = Vector2.Lerp(playerRB.velocity, playerRB.velocity + newPos, 10f * Time.deltaTime);
 		}
 	}
-
-
 }

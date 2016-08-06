@@ -1,0 +1,225 @@
+fileFormatVersion: 2
+guid: f06ff032d12ce4d308f09ec6b634fd87
+timeCreated: 1470512072
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: joyride_melee_0
+    21300002: joyride_melee_1
+    21300004: joyride_melee_2
+    21300006: joyride_melee_3
+    21300008: joyride_melee_4
+    21300010: joyride_melee_5
+    21300012: joyride_melee_6
+    21300014: joyride_melee_7
+    21300016: joyride_melee_8
+    21300018: joyride_melee_9
+    21300020: joyride_melee_10
+    21300022: joyride_melee_11
+    21300024: joyride_melee_12
+    21300026: joyride_melee_13
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: joyride_melee_0
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 91
+        width: 8
+        height: 30
+      alignment: 9
+      pivot: {x: 0.5, y: 0.14}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_1
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 91
+        width: 7
+        height: 30
+      alignment: 9
+      pivot: {x: 0.29, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_2
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 92
+        width: 6
+        height: 29
+      alignment: 9
+      pivot: {x: 0.53, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_3
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 91
+        width: 8
+        height: 30
+      alignment: 9
+      pivot: {x: 0.51, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_4
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 89
+        width: 7
+        height: 33
+      alignment: 9
+      pivot: {x: 0.43, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_5
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 53
+        width: 7
+        height: 26
+      alignment: 9
+      pivot: {x: 0.51, y: 0.31}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_6
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 54
+        width: 13
+        height: 24
+      alignment: 9
+      pivot: {x: 0.31, y: 0.25}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_7
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 55
+        width: 6
+        height: 23
+      alignment: 9
+      pivot: {x: 0.21, y: 0.12}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_8
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 54
+        width: 5
+        height: 24
+      alignment: 9
+      pivot: {x: 0.47, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_9
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 54
+        width: 8
+        height: 25
+      alignment: 9
+      pivot: {x: 0.48, y: 0.15}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_10
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 9
+        width: 18
+        height: 30
+      alignment: 9
+      pivot: {x: 0.51, y: 0.3}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_11
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 21
+        width: 28
+        height: 10
+      alignment: 9
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_12
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 9
+        width: 9
+        height: 31
+      alignment: 9
+      pivot: {x: 0.51, y: 0.12}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: joyride_melee_13
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 9
+        width: 4
+        height: 33
+      alignment: 9
+      pivot: {x: 0.48, y: 0.12}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
