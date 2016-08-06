@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Enemy : AILerp {
+	bool ready;
+
 	Slider healthBar;
 	PlayerController pc;
 	bool weaponFiring = false;
@@ -16,29 +18,29 @@ public class Enemy : AILerp {
 
 	float firingSpeed = 0.8f;
 	float maxHealth = 30f;
-	float aroundPlayerRange = 10f;
 	float minSpeed = 1;
 	float maxSpeed = 6;
 
 	public enum SeekMode{
-		ifNoLOSgotoLOS,
-		ifNoLOSgoToPlayer
+		melee,
+		ranged
 	}
 
-	public void setMinSpeed(int speed){
-		minSpeed = speed;
+	public void makeReady(){
+		ready = true;
 	}
 
-	public void setMaxSpeed(int speed){
-		maxSpeed = speed;
-	}
-		
 	void Start(){
 		tags = new List<string>();
 
 		base.Start();
 		base.target = GameObject.Find("Player").transform;
-		base.myTarget = computeNewDestination();
+
+		if(seekMode == SeekMode.ranged){
+			base.myTarget = computeNewDestination(10f);
+		}else if(seekMode == SeekMode.melee){
+			base.myTarget = computeNewDestination(1f);
+		}
 		base.ForceSearchPath();
 		base.enableRotation = false;
 
@@ -54,61 +56,126 @@ public class Enemy : AILerp {
 		lastX = transform.position.x;
 	}
 
+	protected override void Update ()
+	{
+		if(ready){
+			base.Update ();
+
+			healthBar.value = currHealth / maxHealth;
+
+			if(currHealth <= 0f){
+				killMe();
+			}
+
+			//makes enemy go idle if standing still
+			if(transform.position == base.myTarget){
+				anim.SetBool("isidle", true);
+				anim.SetBool("isrunning", false);
+
+				//we're standing, so set sprite direction
+				//based on where player is in relation
+				//to us
+				if(pc.transform.position.x < this.transform.position.x){
+					spriteRend.flipX = true;
+				}else{
+					spriteRend.flipX = false;
+				}
+
+			}else{
+				anim.SetBool("isidle", false);
+				anim.SetBool("isrunning", true);
+
+				//we're walking, so set sprite direction
+				//based on last position
+				if(lastX > this.transform.position.x){
+					spriteRend.flipX = true;
+				}else{
+					spriteRend.flipX = false;
+				}
+			}
+
+			lastX = transform.position.x;
+		}
+	}
+
+	public void setMode(SeekMode mode){
+		seekMode = mode;
+	}
+
+	public void setMinSpeed(int speed){
+		minSpeed = speed;
+	}
+
+	public void setMaxSpeed(int speed){
+		maxSpeed = speed;
+	}
+
+	//in case we want to do something once the A* destination is reached
 	public override void OnTargetReached () {
 //		base.ForceSearchPath();
 	}
 
-	Vector3 computeNewDestination(){
-		//if no line of sight, calculate a new path
+	Vector3 computeNewDestination(float aroundPlayerRange){
 		Vector3 tpos = target.position;
 
-		//find a place around the player so enemy doesn't sit on top of him
-		Vector3 aroundTarget = 
-			new Vector3(
+		Vector2 aroundTarget2 = 
+			new Vector2(
 				tpos.x + Random.Range(-aroundPlayerRange, aroundPlayerRange), 
-				tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange), 
-				tpos.z);
+				tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange));
 
 		//keep trying to find a place that isn't occupied by a wall or an enemy
-		RaycastHit2D hit = Physics2D.CircleCast(aroundTarget, 1f, Vector2.zero);
-		while(hit && (hit.transform.tag == "Wall" || hit.transform.tag == "Enemy")){
-			aroundTarget = 
-				new Vector3(
-					tpos.x + Random.Range(-aroundPlayerRange, aroundPlayerRange),
-					tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange),
-					tpos.z);
-			hit = Physics2D.CircleCast(aroundTarget, 1f, Vector2.zero);
+		Collider2D[] hit = Physics2D.OverlapCircleAll(aroundTarget2, 1f);
+
+		int numTries = 0; //prevent infinite loop
+		while(hit.Length > 0 && numTries < 10){
+			tags.Clear();
+
+			for(int i = 0; i < hit.Length; i++){
+				tags.Add(hit[i].tag);
+				print(hit[i].tag);
+			}
+
+			if(tags.Contains("Wall") || tags.Contains("Enemy")){
+				aroundTarget2 = 
+					new Vector2(
+						tpos.x + Random.Range(-aroundPlayerRange, aroundPlayerRange),
+						tpos.y + Random.Range(-aroundPlayerRange, aroundPlayerRange));
+				hit = Physics2D.OverlapCircleAll(aroundTarget2, 1f);
+			}
+			numTries++;
 		}
 
-		//we found one
-		return aroundTarget;
+		return aroundTarget2;
 	}
 
+	//continually check LOS and compute new destination if LOS is lost
 	IEnumerator moveDecide(){
 		while(true){
+			//find a spot based on whether we need melee distance or ranged distance
+			if(seekMode == SeekMode.ranged){
+				//check line of sight from current destination point and player
+				RaycastHit2D[] hits = Physics2D.RaycastAll(base.myTarget, pc.transform.position - base.myTarget);
+				if(hits.Length > 0){
+					tags.Clear();
+					for(int i = 0; i < hits.Length; i++){
+						tags.Add(hits[i].transform.tag);
+					}
 
-			//check line of sight from current destination point and player
-			RaycastHit2D[] hits = Physics2D.RaycastAll(base.myTarget, pc.transform.position - base.myTarget);
-			if(hits.Length > 0){
-				tags.Clear();
-				for(int i = 0; i < hits.Length; i++){
-					tags.Add(hits[i].transform.tag);
+					//prevents enemies from not shooting due to other enemies being in line of sight
+					tags.RemoveAll(x => x == "Enemy");
+
+					//if player isn't in line of sight
+					if(tags.IndexOf("Player") != 0){
+						base.myTarget = computeNewDestination(10f);
+
+						//change: this to not keep getting called even after a spot has been found
+						base.ForceSearchPath();
+					}
+
 				}
-
-				//prevents enemies from not shooting due to other enemies being in line of sight
-				tags.RemoveAll(x => x == "Enemy");
-
-				//if player is in line of sight
-				if(tags.IndexOf("Player") == 0){
-					if(seekMode == SeekMode.ifNoLOSgotoLOS)
-						base.canMove = false;
-				}else{
-					if(seekMode == SeekMode.ifNoLOSgotoLOS)
-						base.canMove = true;
-
-					base.myTarget = computeNewDestination();
-
-					//FIX: this keeps getting called even after a spot has been found
+			}else if(seekMode == SeekMode.melee){
+				if(Vector3.Distance(base.myTarget, pc.transform.position) > 2f){
+					base.myTarget = computeNewDestination(1f);
 					base.ForceSearchPath();
 				}
 			}
@@ -141,48 +208,6 @@ public class Enemy : AILerp {
 			}
 			yield return new WaitForSeconds(firingSpeed);
 		}
-	}
-
-	protected override void Update ()
-	{
-		base.Update ();
-
-		healthBar.value = currHealth / maxHealth;
-
-		if(currHealth <= 0f){
-			killMe();
-		}
-			
-		//makes enemy go idle if standing still
-		if(transform.position == base.myTarget){
-			anim.SetBool("isidle", true);
-			anim.SetBool("isrunning", false);
-
-			//we're standing, so set sprite direction
-			//based on where player is in relation
-			//to us
-			if(pc.transform.position.x < this.transform.position.x){
-				spriteRend.flipX = true;
-			}else{
-				spriteRend.flipX = false;
-			}
-
-		}else{
-			anim.SetBool("isidle", false);
-			anim.SetBool("isrunning", true);
-
-			//we're walking, so set sprite direction
-			//based on last position
-			if(lastX > this.transform.position.x){
-				spriteRend.flipX = true;
-			}else{
-				spriteRend.flipX = false;
-			}
-		}
-
-
-
-		lastX = transform.position.x;
 	}
 
 	public void killMe(){

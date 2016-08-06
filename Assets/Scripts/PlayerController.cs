@@ -135,16 +135,37 @@ public class PlayerController : MonoBehaviour {
 
 		reticleTarget = ray.origin;
 
-		if (Input.GetMouseButton(0)
-			&& screenPos.x > 0 
-			&& screenPos.x < Screen.width
-			&& screenPos.y > 0 
-			&& screenPos.y < Screen.height
-		){
-			if(weaponFiring == false){
-				StartCoroutine("fireWeapon");
-				weaponFiring = true;
+		//handle ranged and melee attacking via right/left mouse buttons
+		if (Input.GetMouseButton(0)){
+			if(screenPos.x > 0 
+				&& screenPos.x < Screen.width
+				&& screenPos.y > 0 
+				&& screenPos.y < Screen.height){
+				if(weaponFiring == false){
+					StartCoroutine("fireWeapon");
+					weaponFiring = true;
+				}
+			}else{
+				weaponFiring = false;
+				StopCoroutine("fireWeapon");
 			}
+		}else if(Input.GetMouseButtonDown(1)){
+			//melee distance from player, in direction of reticle
+			Vector3 hitLocation = 
+				transform.position + (new Vector3(reticleTarget.x, reticleTarget.y, 0f) - transform.position).normalized * 1f;
+
+			//coule be used to place mines
+			GameObject g = GameObject.Instantiate(Resources.Load("Prefabs/dirt4"),hitLocation, Quaternion.identity) as GameObject;
+
+			//check in a radius around hit area for enemies.
+			//if hit one, make it take damage
+			RaycastHit2D hit = Physics2D.CircleCast(hitLocation, 2f, Vector2.zero);
+			if(hit && (hit.transform.tag == "Enemy")){
+				if(hit.transform.GetComponent<Enemy>() != null){
+					hit.transform.GetComponent<Enemy>().takeDmg(5);
+				}
+			}
+
 		}else{
 			weaponFiring = false;
 			StopCoroutine("fireWeapon");

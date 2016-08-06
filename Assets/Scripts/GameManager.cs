@@ -101,6 +101,8 @@ public class GameManager : MonoBehaviour {
 					newEnemy.transform.parent = GameObject.Find("Enemies").transform;
 					newEnemy.GetComponent<Enemy>().setMinSpeed(minSpeed);
 					newEnemy.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
+					newEnemy.GetComponent<Enemy>().makeReady();
+					newEnemy.GetComponent<Enemy>().setMode(Enemy.SeekMode.ranged);
 					enemies.Add(newEnemy);
 					return false;
 				}
@@ -126,6 +128,8 @@ public class GameManager : MonoBehaviour {
 					newEnemy.transform.parent = GameObject.Find("Enemies").transform;
 					newEnemy.GetComponent<Enemy>().setMinSpeed(minSpeed);
 					newEnemy.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
+					newEnemy.GetComponent<Enemy>().setMode(Enemy.SeekMode.melee);
+					newEnemy.GetComponent<Enemy>().makeReady();
 					enemies.Add(newEnemy);
 					return false;
 				}
