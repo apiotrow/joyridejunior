@@ -235,9 +235,12 @@ public class Enemy : AILerp {
 		Destroy(GetComponent<BoxCollider2D>()); //so we can walk over it
 		Destroy(healthBar.gameObject);
 		anim.SetTrigger("die");
-		StartCoroutine("waitForDeathAnimationToEnd");
+
+		//for this to work, must make transition from death anim -> Done in the Animator
+//		StartCoroutine("waitForDeathAnimationToEnd");
 	}
-		
+
+	//for if we want to destroy the enemy gameobject after death animation
 	IEnumerator waitForDeathAnimationToEnd(){
 		while(!this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Done")){
 			yield return new WaitForSeconds(0.1f);
