@@ -40,7 +40,7 @@ public class Bullet : MonoBehaviour {
 	void Update () {
 		if(ready){
 			//move the bullet
-			transform.position = Vector3.MoveTowards(transform.position, dir, Time.deltaTime * 10f);
+			transform.position = Vector3.MoveTowards(transform.position, dir, Time.deltaTime * 20f);
 
 			//delete bullet if it goes off screen
 			Vector3 bulletScreenPos = Camera.main.WorldToScreenPoint(transform.position);

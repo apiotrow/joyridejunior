@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour {
 					newEnemy.GetComponent<Enemy>().setMinSpeed(minSpeed);
 					newEnemy.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
 					newEnemy.GetComponent<Enemy>().makeReady();
-					newEnemy.GetComponent<Enemy>().setMode(Enemy.SeekMode.ranged);
+					newEnemy.GetComponent<Enemy>().setMode(Enemy.SeekMode.melee);
 					enemies.Add(newEnemy);
 					return false;
 				}

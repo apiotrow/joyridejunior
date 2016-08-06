@@ -61,7 +61,9 @@ public class Enemy : AILerp {
 		if(ready){
 			base.Update ();
 
-			healthBar.value = currHealth / maxHealth;
+			//if we haven't destroyed healthbar due to dead, update it
+			if(healthBar != null)
+				healthBar.value = currHealth / maxHealth;
 
 			if(currHealth <= 0f){
 				killMe();
@@ -184,18 +186,29 @@ public class Enemy : AILerp {
 	IEnumerator weaponFireDecide()
 	{
 		while(true){
-			RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, pc.transform.position - transform.position);
-			if(hits.Length > 0){
-				tags.Clear();
-				for(int i = 0; i < hits.Length; i++){
-					tags.Add(hits[i].transform.tag);
+			if(seekMode == SeekMode.ranged){
+				RaycastHit2D[] hits = Physics2D.RaycastAll(transform.position, pc.transform.position - transform.position);
+				if(hits.Length > 0){
+					tags.Clear();
+					for(int i = 0; i < hits.Length; i++){
+						tags.Add(hits[i].transform.tag);
+					}
+
+					//prevents enemies from not shooting due to other enemies being in line of sight
+					tags.RemoveAll(x => x == "Enemy");
+
+					//if player is in line of sight
+					if(tags.IndexOf("Player") == 0){
+						GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, Quaternion.identity) as GameObject;
+						newBullet.GetComponent<Bullet>().setDirection(pc.transform.position);
+						newBullet.GetComponent<Bullet>().setTargetTag("Player");
+						newBullet.GetComponent<Bullet>().setColor(Color.green);
+
+						newBullet.GetComponent<Bullet>().makeReady();
+					}
 				}
-
-				//prevents enemies from not shooting due to other enemies being in line of sight
-				tags.RemoveAll(x => x == "Enemy");
-
-				//if player is in line of sight
-				if(tags.IndexOf("Player") == 0){
+			}else if(seekMode == SeekMode.melee){
+				if(Vector3.Distance(transform.position, pc.transform.position) < 2f){
 					GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, Quaternion.identity) as GameObject;
 					newBullet.GetComponent<Bullet>().setDirection(pc.transform.position);
 					newBullet.GetComponent<Bullet>().setTargetTag("Player");
@@ -209,7 +222,26 @@ public class Enemy : AILerp {
 	}
 
 	public void killMe(){
+		ready = false; //stop updating stuff from happening
+
+		//stop moving and shooting coroutines
+		StopCoroutine("weaponFireDecide");	
+		StopCoroutine("moveDecide");
+
 		GameObject.Find("GameManager").GetComponent<GameManager>().removeEnemy(gameObject);
+
+		base.canMove = false;
+		Destroy(GetComponent<Rigidbody2D>()); //so we can't shove it
+		Destroy(GetComponent<BoxCollider2D>()); //so we can walk over it
+		Destroy(healthBar.gameObject);
+		anim.SetTrigger("die");
+		StartCoroutine("waitForDeathAnimationToEnd");
+	}
+		
+	IEnumerator waitForDeathAnimationToEnd(){
+		while(!this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Done")){
+			yield return new WaitForSeconds(0.1f);
+		}
 
 		int roll = Random.Range(0,10);
 

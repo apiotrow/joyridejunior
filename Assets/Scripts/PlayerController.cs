@@ -300,6 +300,7 @@ public class PlayerController : MonoBehaviour {
 			sheath_L.SetActive(true);
 			sheath_R.SetActive(false);
 
+			//set gun or melee item in sheath to visible or invisible
 			if(melee.GetComponent<Animator>().GetBool("isSheathed")){
 				sheath_L.transform.Find("melee").gameObject.SetActive(true);
 				sheath_L.transform.Find("gun").gameObject.SetActive(false);
@@ -313,6 +314,7 @@ public class PlayerController : MonoBehaviour {
 			sheath_L.SetActive(false);
 			sheath_R.SetActive(true);
 
+			//set gun or melee item in sheath to visible or invisible
 			if(melee.GetComponent<Animator>().GetBool("isSheathed")){
 				sheath_R.transform.Find("melee").gameObject.SetActive(true);
 				sheath_R.transform.Find("gun").gameObject.SetActive(false);
@@ -321,6 +323,7 @@ public class PlayerController : MonoBehaviour {
 				sheath_R.transform.Find("gun").gameObject.SetActive(true);
 			}
 
+			//flip character sprite
 			spriteRend.flipX = false;
 		}
 
