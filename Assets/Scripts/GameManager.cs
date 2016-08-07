@@ -138,13 +138,13 @@ public class GameManager : MonoBehaviour {
 			boo[0].GetNodes ((node) => {
 				if(node.NodeIndex == randomNode && node.Walkable == true){
 					var v = (Vector3)node.position;
-					GameObject newEnemy = GameObject.Instantiate(Resources.Load("Prefabs/enemy"), v, Quaternion.identity) as GameObject;
+					GameObject newEnemy = GameObject.Instantiate(Resources.Load("Prefabs/Enemy"), v, Quaternion.identity) as GameObject;
 					newEnemy.transform.parent = GameObject.Find("Enemies").transform;
-					newEnemy.GetComponent<Enemy>().setMinSpeed(minSpeed);
-					newEnemy.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
-					newEnemy.GetComponent<Enemy>().setMaxHealth(getEnemyMaxHealth());
-					newEnemy.GetComponent<Enemy>().setMode(Enemy.SeekMode.melee);
-					newEnemy.GetComponent<Enemy>().makeReady();
+					newEnemy.transform.GetComponent<Enemy>().setMinSpeed(minSpeed);
+					newEnemy.transform.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
+					newEnemy.transform.GetComponent<Enemy>().setMaxHealth(getEnemyMaxHealth());
+					newEnemy.transform.GetComponent<Enemy>().setMode(Enemy.SeekMode.melee);
+					newEnemy.transform.GetComponent<Enemy>().makeReady();
 
 					enemies.Add(newEnemy);
 					return false;
@@ -167,13 +167,13 @@ public class GameManager : MonoBehaviour {
 			boo[0].GetNodes ((node) => {
 				if(node.NodeIndex == randomNode && node.Walkable == true){
 					var v = (Vector3)node.position;
-					GameObject newEnemy = GameObject.Instantiate(Resources.Load("Prefabs/enemy"), v, Quaternion.identity) as GameObject;
+					GameObject newEnemy = GameObject.Instantiate(Resources.Load("Prefabs/Enemy"), v, Quaternion.identity) as GameObject;
 					newEnemy.transform.parent = GameObject.Find("Enemies").transform;
-					newEnemy.GetComponent<Enemy>().setMinSpeed(minSpeed);
-					newEnemy.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
-					newEnemy.GetComponent<Enemy>().setMaxHealth(getEnemyMaxHealth());
-					newEnemy.GetComponent<Enemy>().setMode(Enemy.SeekMode.melee);
-					newEnemy.GetComponent<Enemy>().makeReady();
+					newEnemy.transform.GetComponent<Enemy>().setMinSpeed(minSpeed);
+					newEnemy.transform.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
+					newEnemy.transform.GetComponent<Enemy>().setMaxHealth(getEnemyMaxHealth());
+					newEnemy.transform.GetComponent<Enemy>().setMode(Enemy.SeekMode.melee);
+					newEnemy.transform.GetComponent<Enemy>().makeReady();
 					enemies.Add(newEnemy);
 					return false;
 				}

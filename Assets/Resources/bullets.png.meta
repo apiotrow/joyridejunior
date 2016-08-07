@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e00f7036e40694496952f924c214d1df
-timeCreated: 1470594083
+timeCreated: 1470595317
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -19,9 +19,9 @@ TextureImporter:
     21300024: gunssmaller_12
     21300026: gunssmaller_13
     21300028: bullets_0
-    21300030: bullets_1
-    21300032: bullets_2
-    21300034: bullets_3
+    21300030: bullets_1_rep
+    21300032: bullets_2_rep
+    21300034: bullets_1_seq
     21300036: bullets_4
     21300038: bullets_5
     21300040: bullets_6
@@ -32,6 +32,9 @@ TextureImporter:
     21300050: bullets_0
     21300052: bullets_12
     21300054: bullets_13
+    21300056: bullets_2_seq
+    21300058: bullets_3_seq
+    21300060: bullets_3_more
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -85,6 +88,72 @@ TextureImporter:
         y: 10
         width: 22
         height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: bullets_1_rep
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 122
+        width: 1
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: bullets_2_rep
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 108
+        width: 6
+        height: 1
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: bullets_1_seq
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 122
+        width: 4
+        height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: bullets_2_seq
+      rect:
+        serializedVersion: 2
+        x: 29
+        y: 106
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: bullets_3_seq
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 92
+        width: 3
+        height: 3
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: bullets_3_more
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 92
+        width: 6
+        height: 3
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

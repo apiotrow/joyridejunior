@@ -1,20 +1,20 @@
 fileFormatVersion: 2
 guid: f06ff032d12ce4d308f09ec6b634fd87
-timeCreated: 1470594229
+timeCreated: 1470595109
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
     21300000: joyride_melee_0
-    21300002: joyride_melee_1
+    21300002: melee_branch
     21300004: joyride_melee_2
-    21300006: joyride_melee_3
+    21300006: melee_club
     21300008: joyride_melee_4
-    21300010: joyride_melee_5
+    21300010: melee_dildo
     21300012: joyride_melee_6
-    21300014: joyride_melee_7
+    21300014: melee_nightstick
     21300016: joyride_melee_8
-    21300018: joyride_melee_9
-    21300020: joyride_melee_10
+    21300018: melee_meat
+    21300020: melee_axe
     21300022: joyride_melee_11
     21300024: joyride_melee_12
     21300026: joyride_melee_13
@@ -75,7 +75,7 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.14}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: joyride_melee_1
+    - name: melee_branch
       rect:
         serializedVersion: 2
         x: 38
@@ -97,7 +97,7 @@ TextureImporter:
       pivot: {x: 0.53, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: joyride_melee_3
+    - name: melee_club
       rect:
         serializedVersion: 2
         x: 78
@@ -119,7 +119,7 @@ TextureImporter:
       pivot: {x: 0.43, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: joyride_melee_5
+    - name: melee_dildo
       rect:
         serializedVersion: 2
         x: 18
@@ -141,7 +141,7 @@ TextureImporter:
       pivot: {x: 0.31, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: joyride_melee_7
+    - name: melee_nightstick
       rect:
         serializedVersion: 2
         x: 61
@@ -163,7 +163,7 @@ TextureImporter:
       pivot: {x: 0.47, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: joyride_melee_9
+    - name: melee_meat
       rect:
         serializedVersion: 2
         x: 102
@@ -174,7 +174,7 @@ TextureImporter:
       pivot: {x: 0.48, y: 0.15}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: joyride_melee_10
+    - name: melee_axe
       rect:
         serializedVersion: 2
         x: 11
@@ -183,17 +183,6 @@ TextureImporter:
         height: 30
       alignment: 9
       pivot: {x: 0.51, y: 0.3}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: joyride_melee_11
-      rect:
-        serializedVersion: 2
-        x: 36
-        y: 21
-        width: 28
-        height: 10
-      alignment: 9
-      pivot: {x: 0.3863588, y: 0.5090725}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     - name: joyride_melee_12

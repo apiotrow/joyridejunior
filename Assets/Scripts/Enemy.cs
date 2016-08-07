@@ -26,6 +26,8 @@ public class Enemy : AILerp {
 		ranged
 	}
 
+	public List<Text> damageTexts;
+
 	public void setMaxHealth(float h){
 		maxHealth = h;
 	}
@@ -61,15 +63,21 @@ public class Enemy : AILerp {
 		base.enableRotation = false;
 
 		healthBar = transform.Find("Canvas/Slider").GetComponent<Slider>() as Slider;
+//		healthBar.gameObject.SetActive(false); //not using for now
 		base.speed = Random.Range(minSpeed, maxSpeed);
 		pc = GameObject.Find("Player").GetComponent<PlayerController>();
 		StartCoroutine("weaponFireDecide");	
 		StartCoroutine("moveDecide");
 		currHealth = maxHealth;
 
-		anim = GetComponent<Animator>();
-		spriteRend = GetComponent<SpriteRenderer>();
+		anim = transform.Find("sprite").GetComponent<Animator>();
+		spriteRend = transform.Find("sprite").GetComponent<SpriteRenderer>();
 		lastX = transform.position.x;
+
+		//initialize damage text to nothing
+		for(int i = 0; i < damageTexts.Count; i++){
+			damageTexts[i].text = "";
+		}
 	}
 
 	protected override void Update ()
@@ -232,6 +240,18 @@ public class Enemy : AILerp {
 		if(currHealth <= 0f){
 			killMe(mode);
 		}
+
+		for(int i = 0; i < damageTexts.Count; i++){
+			if(damageTexts[i].GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("anim_damageTextWaiting")){
+				print(damageTexts[i].name);
+				damageTexts[i].text = dmg.ToString();
+//				damageTexts[i].text = currHealth.ToString();
+				damageTexts[i].GetComponent<Animator>().SetTrigger("begin");
+				damageTexts[i].color = Color.Lerp(Color.red, Color.green, currHealth / maxHealth);
+				break;
+			}
+		}
+
 	}
 
 	public void killMe(PlayerController.killMode mode){
@@ -245,7 +265,7 @@ public class Enemy : AILerp {
 
 		base.canMove = false;
 		Destroy(GetComponent<Rigidbody2D>()); //so we can't shove it
-		Destroy(GetComponent<BoxCollider2D>()); //so we can walk over it
+		Destroy(transform.Find("sprite").GetComponent<BoxCollider2D>()); //so we can walk over it
 		Destroy(healthBar.gameObject);
 
 		//determine what death animation should play, based on how we are killed

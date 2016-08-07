@@ -1,22 +1,22 @@
 fileFormatVersion: 2
 guid: 03a6b32e77b444e82854799503e31593
-timeCreated: 1470594112
+timeCreated: 1470595176
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: gunssmaller_0
+    21300000: gun_1
     21300002: gunssmaller_1
-    21300004: gunssmaller_2
+    21300004: gun_2
     21300006: gunssmaller_3
-    21300008: gunssmaller_4
-    21300010: gunssmaller_5
+    21300008: gun_3
+    21300010: gun_4
     21300012: gunssmaller_6
     21300014: gunssmaller_7
-    21300016: gunssmaller_8
-    21300018: gunssmaller_9
-    21300020: gunssmaller_10
+    21300016: gun_5
+    21300018: gun_6
+    21300020: gun_7
     21300022: gunssmaller_11
-    21300024: gunssmaller_12
+    21300024: gun_8
     21300026: gunssmaller_13
   serializedVersion: 2
   mipmaps:
@@ -64,7 +64,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: gunssmaller_0
+    - name: gun_1
       rect:
         serializedVersion: 2
         x: 2
@@ -75,7 +75,7 @@ TextureImporter:
       pivot: {x: 0.57355845, y: 0.50817364}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gunssmaller_2
+    - name: gun_2
       rect:
         serializedVersion: 2
         x: 2
@@ -86,7 +86,7 @@ TextureImporter:
       pivot: {x: 0.43079996, y: 0.4768558}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gunssmaller_4
+    - name: gun_3
       rect:
         serializedVersion: 2
         x: 2
@@ -97,7 +97,7 @@ TextureImporter:
       pivot: {x: 0.48784062, y: 0.83686924}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gunssmaller_5
+    - name: gun_4
       rect:
         serializedVersion: 2
         x: 2
@@ -108,7 +108,7 @@ TextureImporter:
       pivot: {x: 0.44399422, y: 0.60755324}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gunssmaller_8
+    - name: gun_5
       rect:
         serializedVersion: 2
         x: 3
@@ -119,7 +119,7 @@ TextureImporter:
       pivot: {x: 0.38979197, y: 0.88265675}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gunssmaller_9
+    - name: gun_6
       rect:
         serializedVersion: 2
         x: 2
@@ -130,7 +130,7 @@ TextureImporter:
       pivot: {x: 0.42539397, y: 0.6796646}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gunssmaller_10
+    - name: gun_7
       rect:
         serializedVersion: 2
         x: 2
@@ -141,7 +141,7 @@ TextureImporter:
       pivot: {x: 0.425793, y: 0.6035029}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gunssmaller_12
+    - name: gun_8
       rect:
         serializedVersion: 2
         x: 2

@@ -79,6 +79,9 @@ public class PlayerController : MonoBehaviour {
 		sheathedMelee_L.GetComponent<SpriteRenderer>().sprite = meleeSprite;
 		sheathedGun_R.GetComponent<SpriteRenderer>().sprite = rangedSprite;
 		sheathedGun_L.GetComponent<SpriteRenderer>().sprite = rangedSprite;
+
+		print(meleeSprite.name);
+		print(rangedSprite.name);
 	}
 
 	void Start () {
@@ -106,7 +109,7 @@ public class PlayerController : MonoBehaviour {
 		for(int i = 0; i < meleeWeapons.Length; i++) {
 			meleeWeapons[i] = meleeTextures[i].name;
 		}
-		Sprite[] gunTextures = Resources.LoadAll<Sprite>("gunssmaller");
+		Sprite[] gunTextures = Resources.LoadAll<Sprite>("joyride_guns");
 		string[] guns = new string[gunTextures.Length];
 		for(int i = 0; i < guns.Length; i++) {
 			guns[i] = gunTextures[i].name;
