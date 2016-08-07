@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour {
 
 	public bool nightMode;
 	public List<GameObject> enemies;
-	bool enemyCorpseDisappear = false;
 
 	Vector3 testPos;
 	bool placingNewEnemies;
@@ -17,6 +16,8 @@ public class GameManager : MonoBehaviour {
 	int currLevel = -1;
 	GameObject deadText;
 	Text inputEnemies;
+	Slider enemyHealthSlider;
+	Text enemyHealthSliderText;
 
 	Toggle nightModeToggle;
 	Toggle corpsesDisappearToggle;
@@ -28,8 +29,16 @@ public class GameManager : MonoBehaviour {
 		deadText.SetActive(false);
 	}
 
+	public float getEnemyMaxHealth(){
+		float health = enemyHealthSlider.value * 100f;
+		if(health == 0f){
+			health = 1f;
+		}
+		return health;
+	}
+
 	public bool doEnemyCorpsesDisappear(){
-		return enemyCorpseDisappear;
+		return corpsesDisappearToggle.isOn;
 	}
 
 	public void showDeadText(){
@@ -65,6 +74,10 @@ public class GameManager : MonoBehaviour {
 
 		corpsesDisappearToggle = GameObject.Find("Toggle_Corpses").GetComponent<Toggle>() as Toggle;
 
+		enemyHealthSlider = GameObject.Find("EnemyHealthChanger").transform.Find("Slider").GetComponent<Slider>() as Slider;
+		enemyHealthSliderText = GameObject.Find("EnemyHealthChanger").transform.Find("Text").GetComponent<Text>() as Text;
+
+		//--no grabbing debug menu things below this line, because object that contains them will be inactive--
 
 		//setup debug panel and the show/hide button for it
 		//---
@@ -83,8 +96,6 @@ public class GameManager : MonoBehaviour {
 				btn.transform.Find("Text").GetComponent<Text>().text = "hide debug panel";
 			}
 		});
-
-		//--no grabbing debug menu things below this line, because object that contains them will be inactive--
 
 		levelNumber = GameObject.Find("LevelNumber").GetComponent<Text>() as Text;
 
@@ -131,8 +142,10 @@ public class GameManager : MonoBehaviour {
 					newEnemy.transform.parent = GameObject.Find("Enemies").transform;
 					newEnemy.GetComponent<Enemy>().setMinSpeed(minSpeed);
 					newEnemy.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
-					newEnemy.GetComponent<Enemy>().makeReady();
+					newEnemy.GetComponent<Enemy>().setMaxHealth(getEnemyMaxHealth());
 					newEnemy.GetComponent<Enemy>().setMode(Enemy.SeekMode.melee);
+					newEnemy.GetComponent<Enemy>().makeReady();
+
 					enemies.Add(newEnemy);
 					return false;
 				}
@@ -158,6 +171,7 @@ public class GameManager : MonoBehaviour {
 					newEnemy.transform.parent = GameObject.Find("Enemies").transform;
 					newEnemy.GetComponent<Enemy>().setMinSpeed(minSpeed);
 					newEnemy.GetComponent<Enemy>().setMaxSpeed(maxSpeed);
+					newEnemy.GetComponent<Enemy>().setMaxHealth(getEnemyMaxHealth());
 					newEnemy.GetComponent<Enemy>().setMode(Enemy.SeekMode.melee);
 					newEnemy.GetComponent<Enemy>().makeReady();
 					enemies.Add(newEnemy);
@@ -178,6 +192,7 @@ public class GameManager : MonoBehaviour {
 		levelNumber.text = (currLevel + 1).ToString();
 
 		nightMode = nightModeToggle.isOn;
-		enemyCorpseDisappear = corpsesDisappearToggle.isOn;
+
+		enemyHealthSliderText.text = (Mathf.Round(getEnemyMaxHealth())).ToString();
 	}
 }

@@ -17,13 +17,17 @@ public class Enemy : AILerp {
 	SpriteRenderer spriteRend;
 	float lastX;
 	float firingSpeed = 0.8f;
-	public float maxHealth = 30f;
+	float maxHealth = 30f;
 	float minSpeed = 1;
 	float maxSpeed = 6;
 
 	public enum SeekMode{
 		melee,
 		ranged
+	}
+
+	public void setMaxHealth(float h){
+		maxHealth = h;
 	}
 
 	public void setMode(SeekMode mode){
@@ -72,6 +76,13 @@ public class Enemy : AILerp {
 	{
 		if(ready){
 			base.Update ();
+
+			//if enemy max health was changed via slider in debug menu, update the health
+			//of this enemy
+			if(GameObject.Find("GameManager").GetComponent<GameManager>().getEnemyMaxHealth() != maxHealth){
+				maxHealth = GameObject.Find("GameManager").GetComponent<GameManager>().getEnemyMaxHealth();
+				currHealth = GameObject.Find("GameManager").GetComponent<GameManager>().getEnemyMaxHealth();
+			}
 
 			//if we haven't destroyed healthbar due to dead, update it
 			if(healthBar != null)
