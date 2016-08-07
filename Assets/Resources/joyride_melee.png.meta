@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: f06ff032d12ce4d308f09ec6b634fd87
-timeCreated: 1470512072
+timeCreated: 1470594229
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -193,7 +193,7 @@ TextureImporter:
         width: 28
         height: 10
       alignment: 9
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.3863588, y: 0.5090725}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     - name: joyride_melee_12

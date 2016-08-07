@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Linq;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour {
 	public MoveType moveType;
@@ -32,8 +34,10 @@ public class PlayerController : MonoBehaviour {
 	GameObject melee;
 	GameObject sheath_R;
 	GameObject sheath_L;
-	GameObject sheathedMelee;
-	GameObject sheathedGun;
+	GameObject sheathedMelee_R;
+	GameObject sheathedGun_R;
+	GameObject sheathedMelee_L;
+	GameObject sheathedGun_L;
 	GameObject gun;
 
 	float maxHealth = 100f;
@@ -68,6 +72,15 @@ public class PlayerController : MonoBehaviour {
 			currAmmo = maxAmmo;
 	}
 
+	void changeWeapon(Sprite meleeSprite, Sprite rangedSprite){
+		melee.GetComponent<SpriteRenderer>().sprite = meleeSprite;
+		gun.GetComponent<SpriteRenderer>().sprite = rangedSprite;
+		sheathedMelee_R.GetComponent<SpriteRenderer>().sprite = meleeSprite;
+		sheathedMelee_L.GetComponent<SpriteRenderer>().sprite = meleeSprite;
+		sheathedGun_R.GetComponent<SpriteRenderer>().sprite = rangedSprite;
+		sheathedGun_L.GetComponent<SpriteRenderer>().sprite = rangedSprite;
+	}
+
 	void Start () {
 		player = GameObject.Find("Player");
 		playerRB = player.GetComponent<Rigidbody2D>();
@@ -78,6 +91,35 @@ public class PlayerController : MonoBehaviour {
 		currHealth = maxHealth;
 		ammoText.text = maxAmmo.ToString();
 		currAmmo = maxAmmo;
+
+		melee = transform.Find("gunlight/melee").gameObject;
+		gun = transform.Find("gunlight/gun").gameObject;
+		sheath_R = transform.Find("sheath_R").gameObject;
+		sheath_L = transform.Find("sheath_L").gameObject;
+		sheathedMelee_R = sheath_R.transform.Find("melee").gameObject;
+		sheathedGun_R = sheath_R.transform.Find("gun").gameObject;
+		sheathedMelee_L = sheath_L.transform.Find("melee").gameObject;
+		sheathedGun_L = sheath_L.transform.Find("gun").gameObject;
+
+		Sprite[] meleeTextures = Resources.LoadAll<Sprite>("joyride_melee");
+		string[] meleeWeapons = new string[meleeTextures.Length];
+		for(int i = 0; i < meleeWeapons.Length; i++) {
+			meleeWeapons[i] = meleeTextures[i].name;
+		}
+		Sprite[] gunTextures = Resources.LoadAll<Sprite>("gunssmaller");
+		string[] guns = new string[gunTextures.Length];
+		for(int i = 0; i < guns.Length; i++) {
+			guns[i] = gunTextures[i].name;
+		}
+		Button btn;
+		btn = GameObject.Find("Button_ChangeWeapon").GetComponent("Button") as Button;
+		btn.onClick.AddListener(() => {
+			string randMeleeWeap = meleeWeapons[Random.Range(0, meleeWeapons.Length)];
+			string randGun = guns[Random.Range(0, guns.Length)];
+			Sprite gunSp = gunTextures.Where(t => t.name == randGun).First<Sprite>();
+			Sprite meleeSp = meleeTextures.Where(t => t.name == randMeleeWeap).First<Sprite>();
+			changeWeapon(meleeSp, gunSp);
+		});
 
 		bouncyAmmoBar = GameObject.Find("BouncyAmmoBar").GetComponent<Slider>() as Slider;
 		bouncyAmmoBar.gameObject.SetActive(false);
@@ -95,11 +137,7 @@ public class PlayerController : MonoBehaviour {
 
 		playerCam = transform.Find("playerCam").gameObject;
 
-		melee = transform.Find("gunlight/melee").gameObject;
-		sheath_R = transform.Find("sheath_R").gameObject;
-		sheath_L = transform.Find("sheath_L").gameObject;
-
-		gun = transform.Find("gunlight/gun").gameObject;
+		//so melee weap is our starting
 		gun.SetActive(false);
 	}
 
@@ -229,7 +267,7 @@ public class PlayerController : MonoBehaviour {
 		reticleTarget = ray.origin;
 
 		//handle ranged and melee attacking via right/left mouse buttons
-		if (Input.GetMouseButton(0)){
+		if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()){
 			melee.GetComponent<Animator>().SetBool("isSheathed", true);
 			gun.SetActive(true);
 
@@ -245,7 +283,7 @@ public class PlayerController : MonoBehaviour {
 				weaponFiring = false;
 				StopCoroutine("fireWeapon");
 			}
-		}else if(Input.GetMouseButtonDown(1)){
+		}else if(Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject()){
 			melee.GetComponent<Animator>().SetBool("isSheathed", false);
 			melee.GetComponent<Animator>().SetTrigger("melee");
 			gun.SetActive(false);

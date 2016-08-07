@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 03a6b32e77b444e82854799503e31593
-timeCreated: 1470525690
+timeCreated: 1470594112
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -71,8 +71,8 @@ TextureImporter:
         y: 117
         width: 20
         height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.57355845, y: 0.50817364}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     - name: gunssmaller_2
@@ -82,8 +82,8 @@ TextureImporter:
         y: 103
         width: 26
         height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.43079996, y: 0.4768558}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     - name: gunssmaller_4
@@ -93,8 +93,8 @@ TextureImporter:
         y: 90
         width: 22
         height: 8
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.48784062, y: 0.83686924}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     - name: gunssmaller_5
@@ -102,10 +102,10 @@ TextureImporter:
         serializedVersion: 2
         x: 2
         y: 73
-        width: 33
+        width: 26
         height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.44399422, y: 0.60755324}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     - name: gunssmaller_8
@@ -115,8 +115,8 @@ TextureImporter:
         y: 56
         width: 28
         height: 12
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.38979197, y: 0.88265675}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     - name: gunssmaller_9
@@ -126,8 +126,8 @@ TextureImporter:
         y: 45
         width: 31
         height: 6
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.42539397, y: 0.6796646}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     - name: gunssmaller_10
@@ -137,19 +137,8 @@ TextureImporter:
         y: 30
         width: 31
         height: 9
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: gunssmaller_11
-      rect:
-        serializedVersion: 2
-        x: 62
-        y: 10
-        width: 22
-        height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.425793, y: 0.6035029}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     - name: gunssmaller_12
@@ -159,8 +148,8 @@ TextureImporter:
         y: 15
         width: 26
         height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.47982195, y: 0.56613714}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     outline: []
