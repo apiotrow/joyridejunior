@@ -121,25 +121,97 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void updateCam(){
-		Vector3 newCamPos = new Vector3(0f, 0f, playerCam.transform.position.z);
+	void updatePosition(){
+		bool moveUp = false;
+		bool moveDown = false;
+		bool moveLeft = false;
+		bool moveRight = false;
 
-		//make camera shift slightly in direction we're aiming
-		float screenMidX = Screen.width / 2f;
-		float screenMidY = Screen.height / 2f;
-		float camX = (Input.mousePosition.x - screenMidX) / screenMidX;
-		float camY = (Input.mousePosition.y - screenMidY) / screenMidY;
+		if(Input.GetKey(KeyCode.A)){
+			moveLeft = true;
+		}
+		if(Input.GetKey(KeyCode.D)){
+			moveRight = true;
+		}
+		if(Input.GetKey(KeyCode.W)){
+			moveUp = true;
+		}
+		if(Input.GetKey(KeyCode.S)){
+			moveDown = true;
+		}
 
-		newCamPos.x += camX;
-		newCamPos.y += camY;
+		//must be vector2 because we're acting on a rigidbody2D
+		Vector2 player2Dpos = new Vector2(player.transform.position.x, player.transform.position.y);
+		Vector2 newPos = Vector2.zero;
 
-		playerCam.transform.localPosition = newCamPos;
-	}
+		if(!moveUp && !moveRight && !moveLeft && !moveDown){
+			anim.SetBool("isidle", true);
+			anim.SetBool("isrunning", false);
+		}
 
-	public void killMe(){
-		GetComponent<PlayerController>().enabled = false;
-		transform.Find("sprite").GetComponent<SpriteRenderer>().color = Color.red;
-		GameObject.Find("GameManager").GetComponent<GameManager>().showDeadText();
+		if(moveUp){
+			newPos.y += movSpeed;
+			anim.SetBool("isidle", false);
+			anim.SetBool("isrunning", true);
+		}
+
+		if(moveDown){
+			newPos.y -= movSpeed;
+			anim.SetBool("isidle", false);
+			anim.SetBool("isrunning", true);
+		}
+
+		if(moveLeft){
+			newPos.x -= movSpeed;
+			anim.SetBool("isidle", false);
+			anim.SetBool("isrunning", true);
+		}
+
+		if(moveRight){
+			newPos.x += movSpeed;
+			anim.SetBool("isidle", false);
+			anim.SetBool("isrunning", true);
+		}
+
+		//flip sprite in direction we're aiming.
+		//also flip object that holds sheathed weapons (strapped to back)
+		if(reticleTarget.x < transform.position.x){
+			sheath_L.SetActive(true);
+			sheath_R.SetActive(false);
+
+			//make gun or melee weapon sheathed
+			if(melee.GetComponent<Animator>().GetBool("isSheathed")){
+				sheath_L.transform.Find("melee").gameObject.SetActive(true);
+				sheath_L.transform.Find("gun").gameObject.SetActive(false);
+			}else{
+				sheath_L.transform.Find("melee").gameObject.SetActive(false);
+				sheath_L.transform.Find("gun").gameObject.SetActive(true);
+			}
+
+			spriteRend.flipX = true;
+		}else{
+			sheath_L.SetActive(false);
+			sheath_R.SetActive(true);
+
+			//make gun or melee weapon sheathed
+			if(melee.GetComponent<Animator>().GetBool("isSheathed")){
+				sheath_R.transform.Find("melee").gameObject.SetActive(true);
+				sheath_R.transform.Find("gun").gameObject.SetActive(false);
+			}else{
+				sheath_R.transform.Find("melee").gameObject.SetActive(false);
+				sheath_R.transform.Find("gun").gameObject.SetActive(true);
+			}
+
+			//flip character sprite
+			spriteRend.flipX = false;
+		}
+			
+		//move the character
+		if(moveType == MoveType.snapped){
+			playerRB.MovePosition(player2Dpos + newPos * Time.deltaTime);
+		}else if(moveType == MoveType.lerped){
+			playerRB.velocity = Vector2.Lerp(playerRB.velocity, playerRB.velocity + newPos, 10f * Time.deltaTime);
+		}
 	}
 
 	void updateShooting(){
@@ -195,12 +267,19 @@ public class PlayerController : MonoBehaviour {
 		handDirection.transform.forward = lightLookAt - transform.position;
 	}
 
-	public void enableBouncyAmmo(int numRounds){
-		bouncyAmmoBar.gameObject.SetActive(true);
-		bouncyAmmo = true;
-		maxBounces = numRounds;
-		bouncesLeft = numRounds;
-		bouncyAmmoBar.value = (float)bouncesLeft / (float)maxBounces;
+	void updateCam(){
+		Vector3 newCamPos = new Vector3(0f, 0f, playerCam.transform.position.z);
+
+		//make camera shift slightly in direction we're aiming
+		float screenMidX = Screen.width / 2f;
+		float screenMidY = Screen.height / 2f;
+		float camX = (Input.mousePosition.x - screenMidX) / screenMidX;
+		float camY = (Input.mousePosition.y - screenMidY) / screenMidY;
+
+		newCamPos.x += camX;
+		newCamPos.y += camY;
+
+		playerCam.transform.localPosition = newCamPos;
 	}
 
 	IEnumerator fireWeapon()
@@ -229,7 +308,7 @@ public class PlayerController : MonoBehaviour {
 				newBullet.GetComponent<Bullet>().setColor(Color.yellow);
 				newBullet.GetComponent<Bullet>().setMaxBounces(0);
 			}
-			
+
 			newBullet.GetComponent<Bullet>().makeReady();
 
 			if(!infAmmo.isOn)
@@ -243,96 +322,17 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void updatePosition(){
-		bool moveUp = false;
-		bool moveDown = false;
-		bool moveLeft = false;
-		bool moveRight = false;
+	public void killMe(){
+		GetComponent<PlayerController>().enabled = false;
+		transform.Find("sprite").GetComponent<SpriteRenderer>().color = Color.red;
+		GameObject.Find("GameManager").GetComponent<GameManager>().showDeadText();
+	}
 
-		if(Input.GetKey(KeyCode.A)){
-			moveLeft = true;
-		}
-		if(Input.GetKey(KeyCode.D)){
-			moveRight = true;
-		}
-		if(Input.GetKey(KeyCode.W)){
-			moveUp = true;
-		}
-		if(Input.GetKey(KeyCode.S)){
-			moveDown = true;
-		}
-
-		Vector2 player2Dpos = new Vector2(player.transform.position.x, player.transform.position.y);
-		Vector2 newPos = Vector2.zero;
-
-		if(!moveUp && !moveRight && !moveLeft && !moveDown){
-			anim.SetBool("isidle", true);
-			anim.SetBool("isrunning", false);
-		}
-		
-		if(moveUp){
-			newPos.y += movSpeed;
-			anim.SetBool("isidle", false);
-			anim.SetBool("isrunning", true);
-		}
-
-		if(moveDown){
-			newPos.y -= movSpeed;
-			anim.SetBool("isidle", false);
-			anim.SetBool("isrunning", true);
-		}
-
-		if(moveLeft){
-			newPos.x -= movSpeed;
-			anim.SetBool("isidle", false);
-			anim.SetBool("isrunning", true);
-		}
-
-		if(moveRight){
-			newPos.x += movSpeed;
-			anim.SetBool("isidle", false);
-			anim.SetBool("isrunning", true);
-		}
-
-		//flip sprite in direction we're aiming.
-		//also flip object that holds sheathed weapons (strapped to back)
-		if(reticleTarget.x < transform.position.x){
-			sheath_L.SetActive(true);
-			sheath_R.SetActive(false);
-
-			//set gun or melee item in sheath to visible or invisible
-			if(melee.GetComponent<Animator>().GetBool("isSheathed")){
-				sheath_L.transform.Find("melee").gameObject.SetActive(true);
-				sheath_L.transform.Find("gun").gameObject.SetActive(false);
-			}else{
-				sheath_L.transform.Find("melee").gameObject.SetActive(false);
-				sheath_L.transform.Find("gun").gameObject.SetActive(true);
-			}
-
-			spriteRend.flipX = true;
-		}else{
-			sheath_L.SetActive(false);
-			sheath_R.SetActive(true);
-
-			//set gun or melee item in sheath to visible or invisible
-			if(melee.GetComponent<Animator>().GetBool("isSheathed")){
-				sheath_R.transform.Find("melee").gameObject.SetActive(true);
-				sheath_R.transform.Find("gun").gameObject.SetActive(false);
-			}else{
-				sheath_R.transform.Find("melee").gameObject.SetActive(false);
-				sheath_R.transform.Find("gun").gameObject.SetActive(true);
-			}
-
-			//flip character sprite
-			spriteRend.flipX = false;
-		}
-
-
-
-		if(moveType == MoveType.snapped){
-			playerRB.MovePosition(player2Dpos + newPos * Time.deltaTime);
-		}else if(moveType == MoveType.lerped){
-			playerRB.velocity = Vector2.Lerp(playerRB.velocity, playerRB.velocity + newPos, 10f * Time.deltaTime);
-		}
+	public void enableBouncyAmmo(int numRounds){
+		bouncyAmmoBar.gameObject.SetActive(true);
+		bouncyAmmo = true;
+		maxBounces = numRounds;
+		bouncesLeft = numRounds;
+		bouncyAmmoBar.value = (float)bouncesLeft / (float)maxBounces;
 	}
 }

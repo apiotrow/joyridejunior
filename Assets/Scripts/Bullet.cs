@@ -61,11 +61,15 @@ public class Bullet : MonoBehaviour {
 		//it works
 		RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.1f, Vector2.zero);
 		if(hit){
-			//layer 8 is "hittable" layer
+			//layer 8 is "hittable" layer. we only want bullets to hit/bounce off of hittable things.
 			if(hit.transform.name != null){
 				if(hit.transform.gameObject.layer == 8){
 					if(hit.transform.tag == targetTag){
-						GameObject expl = GameObject.Instantiate(Resources.Load("Prefabs/BulletExplosion"), transform.position, Quaternion.identity) as GameObject;
+						GameObject expl = 
+							GameObject.Instantiate(
+								Resources.Load("Prefabs/BulletExplosion"), 
+								transform.position, 
+								Quaternion.identity) as GameObject;
 
 						//make enemy take damage. should probably do inheritance instead of this.
 						if(hit.transform.GetComponent<Enemy>() != null){
@@ -81,7 +85,11 @@ public class Bullet : MonoBehaviour {
 						//something to do with them passing over the boundary of the object i think
 						//which would be due to latency
 						if(numBounces >= maxBounces){
-							GameObject expl = GameObject.Instantiate(Resources.Load("Prefabs/BulletExplosion"), transform.position, Quaternion.identity) as GameObject;
+							GameObject expl = 
+								GameObject.Instantiate(
+									Resources.Load("Prefabs/BulletExplosion"), 
+									transform.position, 
+									Quaternion.identity) as GameObject;
 							Destroy(gameObject);
 						}else{
 							Vector3 refl = Vector3.Reflect(dir, hit.normal);

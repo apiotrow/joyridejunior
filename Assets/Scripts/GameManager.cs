@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
+	PlayerController pc;
 	Vector3 testPos;
 	public List<GameObject> enemies;
 	bool placingNewEnemies;
@@ -14,8 +15,6 @@ public class GameManager : MonoBehaviour {
 	Text inputEnemies;
 	public bool nightMode;
 	Toggle nightModeToggle;
-
-	PlayerController pc;
 
 	public List<Level> levelList;
 
@@ -53,6 +52,29 @@ public class GameManager : MonoBehaviour {
 			spawnEnemiesByButton(int.Parse(inputEnemies.text));
 		});
 
+		nightModeToggle = GameObject.Find("Toggle_Nightmode").GetComponent<Toggle>() as Toggle;
+		nightMode = false;
+
+		//setup debug panel and the show/hide button for it
+		//---
+		btn = GameObject.Find("Button_DebugShow").GetComponent("Button") as Button;
+		//intialize it to be hidden
+		GameObject hideShowPanel = btn.transform.parent.transform.Find("DebugHideShowPanel").gameObject;
+		hideShowPanel.SetActive(false);
+		btn.transform.Find("Text").GetComponent<Text>().text = "show debug panel";
+		//set up its behavior
+		btn.onClick.AddListener(() => {
+			if(hideShowPanel.activeSelf){
+				hideShowPanel.SetActive(false);
+				btn.transform.Find("Text").GetComponent<Text>().text = "show debug panel";
+			}else{
+				hideShowPanel.SetActive(true);
+				btn.transform.Find("Text").GetComponent<Text>().text = "hide debug panel";
+			}
+		});
+
+		//--no grabbing debug menu things below this line, because object that contains them will be inactive--
+
 		levelNumber = GameObject.Find("LevelNumber").GetComponent<Text>() as Text;
 
 		levelList = new List<Level>();
@@ -71,9 +93,6 @@ public class GameManager : MonoBehaviour {
 		enemies = new List<GameObject>();
 
 		placeNewEnemies();
-
-		nightModeToggle = GameObject.Find("Toggle_Nightmode").GetComponent<Toggle>() as Toggle;
-		nightMode = false;
 
 		pc = GameObject.Find("Player").GetComponent<PlayerController>();
 	}

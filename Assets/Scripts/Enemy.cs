@@ -6,8 +6,8 @@ using System.Collections.Generic;
 public class Enemy : AILerp {
 	bool ready;
 
-	Slider healthBar;
 	PlayerController pc;
+	Slider healthBar;
 	bool weaponFiring = false;
 	List<string> tags;
 	float currHealth;
