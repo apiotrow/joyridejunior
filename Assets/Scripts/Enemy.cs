@@ -6,16 +6,16 @@ using System.Collections.Generic;
 public class Enemy : AILerp {
 	bool ready;
 
+	public SeekMode seekMode;
+	public Animator anim;
+
 	PlayerController pc;
 	Slider healthBar;
 	bool weaponFiring = false;
 	List<string> tags;
 	float currHealth;
-	public SeekMode seekMode;
-	public Animator anim;
 	SpriteRenderer spriteRend;
 	float lastX;
-
 	float firingSpeed = 0.8f;
 	float maxHealth = 30f;
 	float minSpeed = 1;
@@ -24,6 +24,18 @@ public class Enemy : AILerp {
 	public enum SeekMode{
 		melee,
 		ranged
+	}
+
+	public void setMode(SeekMode mode){
+		seekMode = mode;
+	}
+
+	public void setMinSpeed(int speed){
+		minSpeed = speed;
+	}
+
+	public void setMaxSpeed(int speed){
+		maxSpeed = speed;
 	}
 
 	public void makeReady(){
@@ -100,23 +112,6 @@ public class Enemy : AILerp {
 		}
 	}
 
-	public void setMode(SeekMode mode){
-		seekMode = mode;
-	}
-
-	public void setMinSpeed(int speed){
-		minSpeed = speed;
-	}
-
-	public void setMaxSpeed(int speed){
-		maxSpeed = speed;
-	}
-
-	//in case we want to do something once the A* destination is reached
-	public override void OnTargetReached () {
-//		base.ForceSearchPath();
-	}
-
 	Vector3 computeNewDestination(float aroundPlayerRange){
 		Vector3 tpos = target.position;
 
@@ -183,6 +178,7 @@ public class Enemy : AILerp {
 		}
 	}
 
+	//continually decide whether to fire weapon based on player being in/out of LOS
 	IEnumerator weaponFireDecide()
 	{
 		while(true){
@@ -199,7 +195,8 @@ public class Enemy : AILerp {
 
 					//if player is in line of sight
 					if(tags.IndexOf("Player") == 0){
-						GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, Quaternion.identity) as GameObject;
+						GameObject newBullet = 
+							GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, Quaternion.identity) as GameObject;
 						newBullet.GetComponent<Bullet>().setDirection(pc.transform.position);
 						newBullet.GetComponent<Bullet>().setTargetTag("Player");
 						newBullet.GetComponent<Bullet>().setColor(Color.green);
@@ -209,7 +206,8 @@ public class Enemy : AILerp {
 				}
 			}else if(seekMode == SeekMode.melee){
 				if(Vector3.Distance(transform.position, pc.transform.position) < 2f){
-					GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, Quaternion.identity) as GameObject;
+					GameObject newBullet = 
+						GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, Quaternion.identity) as GameObject;
 					newBullet.GetComponent<Bullet>().setDirection(pc.transform.position);
 					newBullet.GetComponent<Bullet>().setTargetTag("Player");
 					newBullet.GetComponent<Bullet>().setColor(Color.green);
@@ -234,18 +232,22 @@ public class Enemy : AILerp {
 		Destroy(GetComponent<Rigidbody2D>()); //so we can't shove it
 		Destroy(GetComponent<BoxCollider2D>()); //so we can walk over it
 		Destroy(healthBar.gameObject);
-		anim.SetTrigger("die");
+
+		int randDeathInt = Random.Range(1,3);
+		anim.SetInteger("randDeathInt", randDeathInt);
+		print(randDeathInt);
 
 		//for this to work, must make transition from death anim -> Done in the Animator
-//		StartCoroutine("waitForDeathAnimationToEnd");
+		StartCoroutine("waitForDeathAnimationToEnd");
 	}
 
 	//for if we want to destroy the enemy gameobject after death animation
 	IEnumerator waitForDeathAnimationToEnd(){
-		while(!this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Done")){
+		while(!anim.GetCurrentAnimatorStateInfo(0).IsName("anim_ratterDONE")){
 			yield return new WaitForSeconds(0.1f);
 		}
 
+		//drop loot
 		int roll = Random.Range(0,10);
 
 		if(roll == 1 || roll == 2){

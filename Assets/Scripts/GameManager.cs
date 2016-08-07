@@ -6,14 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 	PlayerController pc;
-	Vector3 testPos;
+
+	public bool nightMode;
 	public List<GameObject> enemies;
+
+	Vector3 testPos;
 	bool placingNewEnemies;
 	Text levelNumber;
 	int currLevel = -1;
 	GameObject deadText;
 	Text inputEnemies;
-	public bool nightMode;
+
 	Toggle nightModeToggle;
 
 	public List<Level> levelList;
@@ -78,7 +81,7 @@ public class GameManager : MonoBehaviour {
 		levelNumber = GameObject.Find("LevelNumber").GetComponent<Text>() as Text;
 
 		levelList = new List<Level>();
-		levelList.Add(new Level(1, 2, 3));
+		levelList.Add(new Level(3, 2, 3));
 		levelList.Add(new Level(2, 2, 3));
 		levelList.Add(new Level(3, 2, 3));
 		levelList.Add(new Level(3, 4, 5));

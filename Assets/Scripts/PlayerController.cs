@@ -3,9 +3,12 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
+	public MoveType moveType;
+	public float movSpeed = 4f;
+
 	GameObject player;
 	Rigidbody2D playerRB;
-	public Vector2 reticleTarget;
+	Vector2 reticleTarget;
 	bool weaponFiring = false;
 	float firingSpeed = 0.1f;
 	float currHealth;
@@ -33,8 +36,6 @@ public class PlayerController : MonoBehaviour {
 	GameObject sheathedGun;
 	GameObject gun;
 
-	public MoveType moveType;
-	public float movSpeed = 4f;
 	float maxHealth = 100f;
 	float maxAmmo = 300;
 

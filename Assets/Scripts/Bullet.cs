@@ -29,12 +29,12 @@ public class Bullet : MonoBehaviour {
 		targetTag = tag;
 	}
 
-	public void makeReady(){
-		ready = true;
-	}
-
 	public void setMaxBounces(int num){
 		maxBounces = num;
+	}
+
+	public void makeReady(){
+		ready = true;
 	}
 
 	void Update () {
@@ -83,7 +83,7 @@ public class Bullet : MonoBehaviour {
 
 						//BUG: bullets sometimes explode on the wrong bounce.
 						//something to do with them passing over the boundary of the object i think
-						//which would be due to latency
+						//which would be due to the check happening a split second too late
 						if(numBounces >= maxBounces){
 							GameObject expl = 
 								GameObject.Instantiate(
