@@ -17,7 +17,7 @@ public class Enemy : AILerp {
 	SpriteRenderer spriteRend;
 	float lastX;
 	float firingSpeed = 0.8f;
-	float maxHealth = 30f;
+	public float maxHealth = 30f;
 	float minSpeed = 1;
 	float maxSpeed = 6;
 
@@ -244,18 +244,29 @@ public class Enemy : AILerp {
 		}else if(mode == PlayerController.killMode.shot){
 			randDeathInt = Random.Range(3,5); //3-4
 		}
-		anim.SetInteger("randDeathInt", randDeathInt);
-		print(randDeathInt);
 
-		//for this to work, must make transition from death anim -> Done in the Animator
-		StartCoroutine("waitForDeathAnimationToEnd");
+		anim.SetInteger("randDeathInt", randDeathInt);
+
+		StartCoroutine("waitForDeathAnimationToStart");
 	}
 
-	//for if we want to destroy the enemy gameobject after death animation
-	IEnumerator waitForDeathAnimationToEnd(){
-		while(!anim.GetCurrentAnimatorStateInfo(0).IsName("anim_ratterDONE")){
+	IEnumerator waitForDeathAnimationToStart(){
+		while(!anim.GetCurrentAnimatorStateInfo(0).IsTag("Death")){
 			yield return new WaitForSeconds(0.1f);
 		}
+		StartCoroutine("afterDeath");
+	}
+
+	//what happens to enemy after death animation is done
+	//(technically some milliseconds seconds before it ends)
+	IEnumerator afterDeath(){
+		//wait until death animation is on last frame (roundabout)
+		while(anim.GetCurrentAnimatorStateInfo(0).normalizedTime % 1 <= 0.9f){
+			yield return new WaitForSeconds(0.01f);
+		}
+
+		if(!GameObject.Find("GameManager").GetComponent<GameManager>().doEnemyCorpsesDisappear())
+			anim.speed = 0;
 
 		//drop loot
 		int roll = Random.Range(0,10);
@@ -280,6 +291,8 @@ public class Enemy : AILerp {
 					Quaternion.identity) as GameObject;
 		}
 
-		Destroy(gameObject);
+		Destroy(this); //destroy this script
+		Destroy(this.GetComponent<Seeker>()); //destroy seeker script
+		Destroy(transform.Find("Canvas").gameObject); //get rid of healthbar canvas
 	}
 }

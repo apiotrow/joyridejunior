@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
 
 	public bool nightMode;
 	public List<GameObject> enemies;
+	bool enemyCorpseDisappear = false;
 
 	Vector3 testPos;
 	bool placingNewEnemies;
@@ -18,12 +19,17 @@ public class GameManager : MonoBehaviour {
 	Text inputEnemies;
 
 	Toggle nightModeToggle;
+	Toggle corpsesDisappearToggle;
 
 	public List<Level> levelList;
 
 	void Awake(){
 		deadText = GameObject.Find("DeadText");
 		deadText.SetActive(false);
+	}
+
+	public bool doEnemyCorpsesDisappear(){
+		return enemyCorpseDisappear;
 	}
 
 	public void showDeadText(){
@@ -56,7 +62,9 @@ public class GameManager : MonoBehaviour {
 		});
 
 		nightModeToggle = GameObject.Find("Toggle_Nightmode").GetComponent<Toggle>() as Toggle;
-		nightMode = false;
+
+		corpsesDisappearToggle = GameObject.Find("Toggle_Corpses").GetComponent<Toggle>() as Toggle;
+
 
 		//setup debug panel and the show/hide button for it
 		//---
@@ -81,7 +89,7 @@ public class GameManager : MonoBehaviour {
 		levelNumber = GameObject.Find("LevelNumber").GetComponent<Text>() as Text;
 
 		levelList = new List<Level>();
-		levelList.Add(new Level(3, 2, 3));
+		levelList.Add(new Level(1, 2, 3));
 		levelList.Add(new Level(2, 2, 3));
 		levelList.Add(new Level(3, 2, 3));
 		levelList.Add(new Level(3, 4, 5));
@@ -170,5 +178,6 @@ public class GameManager : MonoBehaviour {
 		levelNumber.text = (currLevel + 1).ToString();
 
 		nightMode = nightModeToggle.isOn;
+		enemyCorpseDisappear = corpsesDisappearToggle.isOn;
 	}
 }
