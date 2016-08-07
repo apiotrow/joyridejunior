@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e00f7036e40694496952f924c214d1df
-timeCreated: 1470595317
+timeCreated: 1470604702
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -95,7 +95,7 @@ TextureImporter:
     - name: bullets_1_rep
       rect:
         serializedVersion: 2
-        x: 30
+        x: 26
         y: 122
         width: 1
         height: 2
@@ -119,7 +119,7 @@ TextureImporter:
         serializedVersion: 2
         x: 23
         y: 122
-        width: 4
+        width: 2
         height: 2
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

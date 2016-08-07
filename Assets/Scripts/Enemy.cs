@@ -243,9 +243,7 @@ public class Enemy : AILerp {
 
 		for(int i = 0; i < damageTexts.Count; i++){
 			if(damageTexts[i].GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("anim_damageTextWaiting")){
-				print(damageTexts[i].name);
 				damageTexts[i].text = dmg.ToString();
-//				damageTexts[i].text = currHealth.ToString();
 				damageTexts[i].GetComponent<Animator>().SetTrigger("begin");
 				damageTexts[i].color = Color.Lerp(Color.red, Color.green, currHealth / maxHealth);
 				break;

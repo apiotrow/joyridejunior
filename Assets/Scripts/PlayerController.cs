@@ -11,19 +11,9 @@ public class PlayerController : MonoBehaviour {
 	GameObject player;
 	Rigidbody2D playerRB;
 	Vector2 reticleTarget;
-	bool weaponFiring = false;
-	float firingSpeed = 0.1f;
 	float currHealth;
 	Slider healthBar;
-	Text ammoText;
-	float currAmmo;
-	bool bouncyAmmo;
-	int bouncesLeft;
-	int maxBounces;
-	Slider bouncyAmmoBar;
 	Toggle infHealth;
-	Toggle infAmmo;
-	Toggle bouncyBullets;
 	Animator anim;
 	SpriteRenderer spriteRend;
 	GameObject handDirection;
@@ -41,7 +31,6 @@ public class PlayerController : MonoBehaviour {
 	GameObject gun;
 
 	float maxHealth = 100f;
-	float maxAmmo = 300;
 
 	public enum killMode{
 		sliced,
@@ -65,11 +54,8 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	public void increaseAmmo(int amt){
-		currAmmo+= amt;
-
-		if(currAmmo >= maxAmmo)
-			currAmmo = maxAmmo;
+	public Vector2 getReticleTarget(){
+		return reticleTarget;
 	}
 
 	void changeWeapon(Sprite meleeSprite, Sprite rangedSprite){
@@ -79,9 +65,6 @@ public class PlayerController : MonoBehaviour {
 		sheathedMelee_L.GetComponent<SpriteRenderer>().sprite = meleeSprite;
 		sheathedGun_R.GetComponent<SpriteRenderer>().sprite = rangedSprite;
 		sheathedGun_L.GetComponent<SpriteRenderer>().sprite = rangedSprite;
-
-		print(meleeSprite.name);
-		print(rangedSprite.name);
 	}
 
 	void Start () {
@@ -90,13 +73,10 @@ public class PlayerController : MonoBehaviour {
 		moveType = MoveType.lerped;
 		reticleTarget = new Vector3();
 		healthBar = GameObject.Find("PlayerHealthBar").GetComponent<Slider>() as Slider;
-		ammoText = GameObject.Find("PlayerAmmo").GetComponent<Text>() as Text;
 		currHealth = maxHealth;
-		ammoText.text = maxAmmo.ToString();
-		currAmmo = maxAmmo;
 
 		melee = transform.Find("gunlight/melee").gameObject;
-		gun = transform.Find("gunlight/gun").gameObject;
+		gun = transform.Find("gunlight/gun1").gameObject;
 		sheath_R = transform.Find("sheath_R").gameObject;
 		sheath_L = transform.Find("sheath_L").gameObject;
 		sheathedMelee_R = sheath_R.transform.Find("melee").gameObject;
@@ -124,12 +104,7 @@ public class PlayerController : MonoBehaviour {
 			changeWeapon(meleeSp, gunSp);
 		});
 
-		bouncyAmmoBar = GameObject.Find("BouncyAmmoBar").GetComponent<Slider>() as Slider;
-		bouncyAmmoBar.gameObject.SetActive(false);
-
 		infHealth = GameObject.Find("Toggle_InfHealth").GetComponent<Toggle>() as Toggle;
-		infAmmo = GameObject.Find("Toggle_InfAmmo").GetComponent<Toggle>() as Toggle;
-		bouncyBullets = GameObject.Find("Toggle_BouncyBullets").GetComponent<Toggle>() as Toggle;
 		infHealth = GameObject.Find("Toggle_InfHealth").GetComponent<Toggle>() as Toggle;
 
 		anim = transform.Find("sprite").GetComponent<Animator>();
@@ -141,18 +116,17 @@ public class PlayerController : MonoBehaviour {
 		playerCam = transform.Find("playerCam").gameObject;
 
 		//so melee weap is our starting
-		gun.SetActive(false);
+		gun.GetComponent<SpriteRenderer>().enabled = false;
 	}
 
 	void Update () {
-		updatePosition();
-		updateShooting();
+		updatePlayerPosition();
+		updateAiming();
+		handleMeleeAttack();
+		updateWeaponVisibility();
 		updateCam();
 
 		healthBar.value = currHealth / maxHealth;
-
-		string ammoString = currAmmo.ToString() + " / " + maxAmmo.ToString();
-		ammoText.text = ammoString;
 
 		if(currHealth <= 0f){
 			killMe();
@@ -168,7 +142,7 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
-	void updatePosition(){
+	void updatePlayerPosition(){
 		bool moveUp = false;
 		bool moveDown = false;
 		bool moveLeft = false;
@@ -221,7 +195,64 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		//flip sprite in direction we're aiming.
-		//also flip object that holds sheathed weapons (strapped to back)
+		if(reticleTarget.x < transform.position.x){
+			spriteRend.flipX = true;
+		}else{
+			spriteRend.flipX = false;
+		}
+			
+		//move the character
+		if(moveType == MoveType.snapped){
+			playerRB.MovePosition(player2Dpos + newPos * Time.deltaTime);
+		}else if(moveType == MoveType.lerped){
+			playerRB.velocity = Vector2.Lerp(playerRB.velocity, playerRB.velocity + newPos, 10f * Time.deltaTime);
+		}
+	}
+
+	void updateAiming(){
+		GameObject.Find("Reticle").transform.position = Input.mousePosition;
+		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+		reticleTarget = ray.origin;
+
+		Vector3 lightLookAt = reticleTarget;
+		lightLookAt.z = 0f;
+
+		handDirection.transform.forward = lightLookAt - transform.position;
+	}
+
+	//make character do melee
+	void handleMeleeAttack(){
+		if(Input.GetMouseButtonDown(1)){
+			//melee distance from player, in direction of reticle
+			Vector3 hitLocation = 
+				transform.position + (new Vector3(reticleTarget.x, reticleTarget.y, 0f) - transform.position).normalized * 1f;
+
+			Collider2D[] hit = Physics2D.OverlapCircleAll(hitLocation, 0.5f);
+			if(hit.Length > 0){
+
+				for(int i = 0; i < hit.Length; i++){
+					if(hit[i].transform.parent.GetComponent<Enemy>() != null){
+						hit[i].transform.parent.GetComponent<Enemy>().takeDmg(5, killMode.sliced);
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	//update the sheathed/unsheathed and directional status of melee
+	//and ranged weapons
+	void updateWeaponVisibility(){
+		if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()){
+			melee.GetComponent<Animator>().SetBool("isSheathed", true);
+			gun.GetComponent<SpriteRenderer>().enabled = true;
+		}else if(Input.GetMouseButtonDown(1)){
+			melee.GetComponent<Animator>().SetBool("isSheathed", false);
+			melee.GetComponent<Animator>().SetTrigger("melee");
+			gun.GetComponent<SpriteRenderer>().enabled = false;
+		}
+
+		//flip object that holds sheathed weapons (strapped to back)
 		if(reticleTarget.x < transform.position.x){
 			sheath_L.SetActive(true);
 			sheath_R.SetActive(false);
@@ -234,8 +265,6 @@ public class PlayerController : MonoBehaviour {
 				sheath_L.transform.Find("melee").gameObject.SetActive(false);
 				sheath_L.transform.Find("gun").gameObject.SetActive(true);
 			}
-
-			spriteRend.flipX = true;
 		}else{
 			sheath_L.SetActive(false);
 			sheath_R.SetActive(true);
@@ -248,70 +277,7 @@ public class PlayerController : MonoBehaviour {
 				sheath_R.transform.Find("melee").gameObject.SetActive(false);
 				sheath_R.transform.Find("gun").gameObject.SetActive(true);
 			}
-
-			//flip character sprite
-			spriteRend.flipX = false;
 		}
-			
-		//move the character
-		if(moveType == MoveType.snapped){
-			playerRB.MovePosition(player2Dpos + newPos * Time.deltaTime);
-		}else if(moveType == MoveType.lerped){
-			playerRB.velocity = Vector2.Lerp(playerRB.velocity, playerRB.velocity + newPos, 10f * Time.deltaTime);
-		}
-	}
-
-	void updateShooting(){
-		GameObject.Find("Reticle").transform.position = Input.mousePosition;
-
-		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-		Vector3 screenPos = Camera.main.WorldToScreenPoint(ray.origin);
-
-		reticleTarget = ray.origin;
-
-		//handle ranged and melee attacking via right/left mouse buttons
-		if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()){
-			melee.GetComponent<Animator>().SetBool("isSheathed", true);
-			gun.SetActive(true);
-
-			if(screenPos.x > 0 
-				&& screenPos.x < Screen.width
-				&& screenPos.y > 0 
-				&& screenPos.y < Screen.height){
-				if(weaponFiring == false){
-					StartCoroutine("fireWeapon");
-					weaponFiring = true;
-				}
-			}else{
-				weaponFiring = false;
-				StopCoroutine("fireWeapon");
-			}
-		}else if(Input.GetMouseButtonDown(1) && !EventSystem.current.IsPointerOverGameObject()){
-			melee.GetComponent<Animator>().SetBool("isSheathed", false);
-			melee.GetComponent<Animator>().SetTrigger("melee");
-			gun.SetActive(false);
-
-			//melee distance from player, in direction of reticle
-			Vector3 hitLocation = 
-				transform.position + (new Vector3(reticleTarget.x, reticleTarget.y, 0f) - transform.position).normalized * 1f;
-
-			Collider2D[] hit = Physics2D.OverlapCircleAll(hitLocation, 0.5f);
-			if(hit.Length > 0){
-				for(int i = 0; i < hit.Length; i++){
-					if(hit[i].transform.GetComponent<Enemy>() != null){
-						hit[i].transform.GetComponent<Enemy>().takeDmg(5, killMode.sliced);
-						break;
-					}
-				}
-			}
-		}else{
-			weaponFiring = false;
-			StopCoroutine("fireWeapon");
-		}
-
-		Vector3 lightLookAt = ray.origin;
-		lightLookAt.z = 0f;
-		handDirection.transform.forward = lightLookAt - transform.position;
 	}
 
 	void updateCam(){
@@ -329,58 +295,9 @@ public class PlayerController : MonoBehaviour {
 		playerCam.transform.localPosition = newCamPos;
 	}
 
-	IEnumerator fireWeapon()
-	{
-		while(true && currAmmo > 0){
-			GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), player.transform.position, Quaternion.identity) as GameObject;
-			newBullet.GetComponent<Bullet>().setDirection(reticleTarget);
-			newBullet.GetComponent<Bullet>().setTargetTag("Enemy");
-			newBullet.GetComponent<Bullet>().setKillMode(killMode.shot);
-
-			if(bouncyAmmo){
-				newBullet.GetComponent<Bullet>().setColor(new Color32(255, 0, 216, 255)); //hot pink
-				newBullet.GetComponent<Bullet>().setMaxBounces(5);
-				bouncesLeft--;
-
-				bouncyAmmoBar.value = (float)bouncesLeft / (float)maxBounces;
-
-				if(bouncesLeft <= 0){
-					bouncyAmmo = false;
-					bouncyAmmoBar.gameObject.SetActive(false);
-					bouncesLeft = 0;
-				}
-			}else if(bouncyBullets.isOn){
-				newBullet.GetComponent<Bullet>().setColor(new Color32(255, 0, 216, 255)); //hot pink
-				newBullet.GetComponent<Bullet>().setMaxBounces(5);
-			}else{
-				newBullet.GetComponent<Bullet>().setColor(Color.yellow);
-				newBullet.GetComponent<Bullet>().setMaxBounces(0);
-			}
-
-			newBullet.GetComponent<Bullet>().makeReady();
-
-			if(!infAmmo.isOn)
-				currAmmo -= 1;
-
-			if(currAmmo <= 0){
-				currAmmo = 0;
-			}
-
-			yield return new WaitForSeconds(firingSpeed);
-		}
-	}
-
 	public void killMe(){
 		GetComponent<PlayerController>().enabled = false;
 		transform.Find("sprite").GetComponent<SpriteRenderer>().color = Color.red;
 		GameObject.Find("GameManager").GetComponent<GameManager>().showDeadText();
-	}
-
-	public void enableBouncyAmmo(int numRounds){
-		bouncyAmmoBar.gameObject.SetActive(true);
-		bouncyAmmo = true;
-		maxBounces = numRounds;
-		bouncesLeft = numRounds;
-		bouncyAmmoBar.value = (float)bouncesLeft / (float)maxBounces;
 	}
 }

@@ -3,9 +3,11 @@ using System.Collections;
 
 public class Goods : MonoBehaviour {
 	PlayerController pc;
+	Gun gun;
 
 	void Start () {
 		pc = GameObject.Find("Player").GetComponent<PlayerController>();
+		gun = GameObject.Find("gun1").GetComponent<Gun>();
 	}
 
 	void Update () {
@@ -17,11 +19,11 @@ public class Goods : MonoBehaviour {
 			}
 
 			if(gameObject.name.Contains("Ammo")){
-				pc.increaseAmmo(25);
+				gun.increaseAmmo(25);
 			}
 
 			if(gameObject.name.Contains("BouncyAmmo")){
-				pc.enableBouncyAmmo(40);
+				gun.enableBouncyAmmo(40);
 			}
 
 			Destroy(gameObject);
