@@ -77,10 +77,6 @@ public class Enemy : AILerp {
 			if(healthBar != null)
 				healthBar.value = currHealth / maxHealth;
 
-			if(currHealth <= 0f){
-				killMe();
-			}
-
 			//makes enemy go idle if standing still
 			if(transform.position == base.myTarget){
 				anim.SetBool("isidle", true);
@@ -219,7 +215,15 @@ public class Enemy : AILerp {
 		}
 	}
 
-	public void killMe(){
+	public void takeDmg(int dmg, PlayerController.killMode mode){
+		currHealth -= dmg;
+
+		if(currHealth <= 0f){
+			killMe(mode);
+		}
+	}
+
+	public void killMe(PlayerController.killMode mode){
 		ready = false; //stop updating stuff from happening
 
 		//stop moving and shooting coroutines
@@ -233,7 +237,13 @@ public class Enemy : AILerp {
 		Destroy(GetComponent<BoxCollider2D>()); //so we can walk over it
 		Destroy(healthBar.gameObject);
 
-		int randDeathInt = Random.Range(1,3);
+		//determine what death animation should play, based on how we are killed
+		int randDeathInt = 0;
+		if(mode == PlayerController.killMode.sliced){
+			randDeathInt = Random.Range(1,3); //1-2
+		}else if(mode == PlayerController.killMode.shot){
+			randDeathInt = Random.Range(3,5); //3-4
+		}
 		anim.SetInteger("randDeathInt", randDeathInt);
 		print(randDeathInt);
 
@@ -271,9 +281,5 @@ public class Enemy : AILerp {
 		}
 
 		Destroy(gameObject);
-	}
-		
-	public void takeDmg(int dmg){
-		currHealth -= dmg;
 	}
 }

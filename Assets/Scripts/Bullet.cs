@@ -6,11 +6,15 @@ public class Bullet : MonoBehaviour {
 	Vector3 dir;
 	string targetTag;
 	int numBounces = 0;
-
 	int maxBounces = 0;
+	PlayerController.killMode killMode;
 
 	void Start () {
 
+	}
+
+	public void setKillMode(PlayerController.killMode mode){
+		killMode = mode;
 	}
 
 	public void setDirection(Vector3 target){
@@ -73,7 +77,7 @@ public class Bullet : MonoBehaviour {
 
 						//make enemy take damage. should probably do inheritance instead of this.
 						if(hit.transform.GetComponent<Enemy>() != null){
-							hit.transform.GetComponent<Enemy>().takeDmg(5);
+							hit.transform.GetComponent<Enemy>().takeDmg(5, killMode);
 						}
 						if(hit.transform.GetComponent<PlayerController>() != null){
 							hit.transform.GetComponent<PlayerController>().takeDmg(5);

@@ -39,6 +39,11 @@ public class PlayerController : MonoBehaviour {
 	float maxHealth = 100f;
 	float maxAmmo = 300;
 
+	public enum killMode{
+		sliced,
+		shot
+	}
+
 	public enum MoveType {
 		lerped,
 		snapped
@@ -253,7 +258,7 @@ public class PlayerController : MonoBehaviour {
 			if(hit.Length > 0){
 				for(int i = 0; i < hit.Length; i++){
 					if(hit[i].transform.GetComponent<Enemy>() != null){
-						hit[i].transform.GetComponent<Enemy>().takeDmg(5);
+						hit[i].transform.GetComponent<Enemy>().takeDmg(5, killMode.sliced);
 						break;
 					}
 				}
@@ -289,6 +294,7 @@ public class PlayerController : MonoBehaviour {
 			GameObject newBullet = GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), player.transform.position, Quaternion.identity) as GameObject;
 			newBullet.GetComponent<Bullet>().setDirection(reticleTarget);
 			newBullet.GetComponent<Bullet>().setTargetTag("Enemy");
+			newBullet.GetComponent<Bullet>().setKillMode(killMode.shot);
 
 			if(bouncyAmmo){
 				newBullet.GetComponent<Bullet>().setColor(new Color32(255, 0, 216, 255)); //hot pink
