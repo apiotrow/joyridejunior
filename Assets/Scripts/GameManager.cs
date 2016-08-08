@@ -84,8 +84,8 @@ public class GameManager : MonoBehaviour {
 		btn = GameObject.Find("Button_DebugShow").GetComponent("Button") as Button;
 		//intialize it to be hidden
 		GameObject hideShowPanel = btn.transform.parent.transform.Find("DebugHideShowPanel").gameObject;
-		hideShowPanel.SetActive(false);
-		btn.transform.Find("Text").GetComponent<Text>().text = "show debug panel";
+//		hideShowPanel.SetActive(false);
+		btn.transform.Find("Text").GetComponent<Text>().text = "hide debug panel";
 		//set up its behavior
 		btn.onClick.AddListener(() => {
 			if(hideShowPanel.activeSelf){

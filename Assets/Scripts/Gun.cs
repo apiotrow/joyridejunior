@@ -22,6 +22,7 @@ public class Gun : MonoBehaviour {
 	Toggle bouncyBullets;
 	Toggle infAmmo;
 	float maxAmmo = 300;
+	bool firing;
 
 	void Start () {
 		bulletSeqStart = transform.Find("bulletSeqStart").gameObject;
@@ -42,6 +43,19 @@ public class Gun : MonoBehaviour {
 	void Update () {
 		string ammoString = currAmmo.ToString() + " / " + maxAmmo.ToString();
 		ammoText.text = ammoString;
+
+		if(firing){
+			GetComponent<AudioSource>().volume = 1f;
+			if(!GetComponent<AudioSource>().isPlaying)
+				GetComponent<AudioSource>().Play();
+		}else{
+			if(GetComponent<AudioSource>().isPlaying){
+				GetComponent<AudioSource>().volume = Mathf.Lerp(GetComponent<AudioSource>().volume, 0f, Time.deltaTime * 10f);
+
+				if(GetComponent<AudioSource>().volume <= 0.1f)
+					GetComponent<AudioSource>().Stop();
+			}
+		}
 	}
 
 	IEnumerator seqBlink(Sprite sp){
@@ -55,7 +69,7 @@ public class Gun : MonoBehaviour {
 			}else{
 				bulletSeqStart.GetComponent<SpriteRenderer>().sprite = null;
 			}
-			yield return new WaitForSeconds(0.1f);
+			yield return new WaitForSeconds(0.05f);
 		}
 	}
 
@@ -63,6 +77,8 @@ public class Gun : MonoBehaviour {
 		while(true){
 			if(currAmmo > 0){
 				if(Input.GetMouseButton(0)/* && !EventSystem.current.IsPointerOverGameObject()*/){
+					firing = true;
+
 					GameObject newBullet = 
 						GameObject.Instantiate(
 							Resources.Load("Prefabs/Bullet"), 
@@ -98,6 +114,8 @@ public class Gun : MonoBehaviour {
 					if(currAmmo <= 0){
 						currAmmo = 0;
 					}
+				}else{
+					firing = false;
 				}
 			}
 			yield return new WaitForSeconds(0.1f);

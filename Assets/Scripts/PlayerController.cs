@@ -30,6 +30,9 @@ public class PlayerController : MonoBehaviour {
 	GameObject sheathedGun_L;
 	GameObject gun;
 
+	AudioClip slashEnemy;
+	AudioClip slashAir;
+
 	float maxHealth = 100f;
 
 	public enum killMode{
@@ -117,6 +120,9 @@ public class PlayerController : MonoBehaviour {
 
 		//so melee weap is our starting
 		gun.GetComponent<SpriteRenderer>().enabled = false;
+
+		slashAir = Resources.Load("Sounds/slashair") as AudioClip;
+		slashEnemy = Resources.Load("Sounds/slash") as AudioClip;
 	}
 
 	void Update () {
@@ -223,15 +229,16 @@ public class PlayerController : MonoBehaviour {
 	//make character do melee
 	void handleMeleeAttack(){
 		if(Input.GetMouseButtonDown(1)){
+			melee.GetComponent<AudioSource>().PlayOneShot(slashAir);
 			//melee distance from player, in direction of reticle
 			Vector3 hitLocation = 
 				transform.position + (new Vector3(reticleTarget.x, reticleTarget.y, 0f) - transform.position).normalized * 1f;
 
 			Collider2D[] hit = Physics2D.OverlapCircleAll(hitLocation, 0.5f);
 			if(hit.Length > 0){
-
 				for(int i = 0; i < hit.Length; i++){
 					if(hit[i].transform.parent.GetComponent<Enemy>() != null){
+						melee.GetComponent<AudioSource>().PlayOneShot(slashEnemy);
 						hit[i].transform.parent.GetComponent<Enemy>().takeDmg(5, killMode.sliced);
 						break;
 					}
