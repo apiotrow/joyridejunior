@@ -1,23 +1,18 @@
 fileFormatVersion: 2
-guid: 03a6b32e77b444e82854799503e31593
-timeCreated: 1470595176
+guid: f4f754a74f5284ecb89b58f0d20c4da8
+timeCreated: 1470882896
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: gun_1
-    21300002: gunssmaller_1
-    21300004: gun_2
-    21300006: gunssmaller_3
-    21300008: gun_3
-    21300010: gun_4
-    21300012: gunssmaller_6
-    21300014: gunssmaller_7
-    21300016: gun_5
-    21300018: gun_6
-    21300020: gun_7
-    21300022: gunssmaller_11
-    21300024: gun_8
-    21300026: gunssmaller_13
+    21300000: ratter_sliced2_karategi_final_0
+    21300002: ratter_sliced2_karategi_final_1
+    21300004: ratter_sliced2_karategi_final_2
+    21300006: ratter_sliced2_karategi_final_4
+    21300008: ratter_sliced2_karategi_final_5
+    21300010: ratter_sliced2_karategi_final_6
+    21300012: ratter_sliced2_karategi_final_7
+    21300014: ratter_sliced2_karategi_final_8
+    21300016: ratter_sliced2_karategi_final_3
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -64,92 +59,92 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: gun_1
+    - name: ratter_sliced2_karategi_final_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 117
-        width: 20
-        height: 9
-      alignment: 9
-      pivot: {x: 0.57355845, y: 0.50817364}
+        x: 11
+        y: 121
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gun_2
+    - name: ratter_sliced2_karategi_final_1
       rect:
         serializedVersion: 2
-        x: 2
-        y: 103
-        width: 26
-        height: 9
-      alignment: 9
-      pivot: {x: 0.43079996, y: 0.4768558}
+        x: 58
+        y: 121
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gun_3
+    - name: ratter_sliced2_karategi_final_2
       rect:
         serializedVersion: 2
-        x: 2
-        y: 90
-        width: 22
-        height: 8
-      alignment: 9
-      pivot: {x: 0.48784062, y: 0.83686924}
+        x: 105
+        y: 121
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gun_4
+    - name: ratter_sliced2_karategi_final_3
       rect:
         serializedVersion: 2
-        x: 2
-        y: 73
-        width: 26
-        height: 9
-      alignment: 9
-      pivot: {x: 0.44399422, y: 0.60755324}
+        x: 11
+        y: 81
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gun_5
+    - name: ratter_sliced2_karategi_final_4
       rect:
         serializedVersion: 2
-        x: 3
-        y: 56
-        width: 28
-        height: 12
-      alignment: 9
-      pivot: {x: 0.38979197, y: 0.88265675}
+        x: 58
+        y: 81
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gun_6
+    - name: ratter_sliced2_karategi_final_5
       rect:
         serializedVersion: 2
-        x: 2
-        y: 45
-        width: 31
-        height: 6
-      alignment: 9
-      pivot: {x: 0.42539397, y: 0.6796646}
+        x: 105
+        y: 81
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gun_7
+    - name: ratter_sliced2_karategi_final_6
       rect:
         serializedVersion: 2
-        x: 2
-        y: 30
-        width: 31
-        height: 9
-      alignment: 9
-      pivot: {x: 0.425793, y: 0.6035029}
+        x: 11
+        y: 40
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: gun_8
+    - name: ratter_sliced2_karategi_final_7
       rect:
         serializedVersion: 2
-        x: 2
-        y: 15
-        width: 26
-        height: 10
-      alignment: 9
-      pivot: {x: 0.47982195, y: 0.56613714}
+        x: 58
+        y: 40
+        width: 41
+        height: 22
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     outline: []

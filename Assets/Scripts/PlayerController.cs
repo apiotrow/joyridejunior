@@ -87,12 +87,12 @@ public class PlayerController : MonoBehaviour {
 		sheathedMelee_L = sheath_L.transform.Find("melee").gameObject;
 		sheathedGun_L = sheath_L.transform.Find("gun").gameObject;
 
-		Sprite[] meleeTextures = Resources.LoadAll<Sprite>("joyride_melee");
+		Sprite[] meleeTextures = Resources.LoadAll<Sprite>("Sprites/Weapons/joyride_melee");
 		string[] meleeWeapons = new string[meleeTextures.Length];
 		for(int i = 0; i < meleeWeapons.Length; i++) {
 			meleeWeapons[i] = meleeTextures[i].name;
 		}
-		Sprite[] gunTextures = Resources.LoadAll<Sprite>("joyride_guns");
+		Sprite[] gunTextures = Resources.LoadAll<Sprite>("Sprites/Weapons/joyride_guns");
 		string[] guns = new string[gunTextures.Length];
 		for(int i = 0; i < guns.Length; i++) {
 			guns[i] = gunTextures[i].name;

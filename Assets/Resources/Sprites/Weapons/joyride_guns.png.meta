@@ -1,18 +1,17 @@
 fileFormatVersion: 2
-guid: f4f754a74f5284ecb89b58f0d20c4da8
-timeCreated: 1470523691
+guid: c3ee126d076e8448e9ce8bfd3bf56cbf
+timeCreated: 1470882281
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: ratter_sliced2_karategi_final_0
-    21300002: ratter_sliced2_karategi_final_1
-    21300004: ratter_sliced2_karategi_final_2
-    21300006: ratter_sliced2_karategi_final_4
-    21300008: ratter_sliced2_karategi_final_5
-    21300010: ratter_sliced2_karategi_final_6
-    21300012: ratter_sliced2_karategi_final_7
-    21300014: ratter_sliced2_karategi_final_8
-    21300016: ratter_sliced2_karategi_final_3
+    21300000: gun_1
+    21300002: gun_2
+    21300004: gun_3
+    21300006: gun_4
+    21300008: gun_5
+    21300010: gun_6
+    21300012: gun_7
+    21300014: gun_8
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -59,92 +58,92 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: ratter_sliced2_karategi_final_0
+    - name: gun_1
       rect:
         serializedVersion: 2
-        x: 11
-        y: 122
-        width: 41
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 2
+        y: 117
+        width: 20
+        height: 9
+      alignment: 9
+      pivot: {x: 0.57355845, y: 0.50817364}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ratter_sliced2_karategi_final_1
+    - name: gun_2
       rect:
         serializedVersion: 2
-        x: 58
-        y: 122
-        width: 41
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 2
+        y: 103
+        width: 26
+        height: 9
+      alignment: 9
+      pivot: {x: 0.43079996, y: 0.4768558}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ratter_sliced2_karategi_final_2
+    - name: gun_3
       rect:
         serializedVersion: 2
-        x: 105
-        y: 122
-        width: 41
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 2
+        y: 90
+        width: 22
+        height: 8
+      alignment: 9
+      pivot: {x: 0.48784062, y: 0.83686924}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ratter_sliced2_karategi_final_3
+    - name: gun_4
       rect:
         serializedVersion: 2
-        x: 11
-        y: 82
-        width: 41
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 2
+        y: 73
+        width: 26
+        height: 9
+      alignment: 9
+      pivot: {x: 0.44399422, y: 0.60755324}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ratter_sliced2_karategi_final_4
+    - name: gun_5
       rect:
         serializedVersion: 2
-        x: 58
-        y: 82
-        width: 41
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 3
+        y: 56
+        width: 28
+        height: 12
+      alignment: 9
+      pivot: {x: 0.38979197, y: 0.88265675}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ratter_sliced2_karategi_final_5
+    - name: gun_6
       rect:
         serializedVersion: 2
-        x: 105
-        y: 82
-        width: 41
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 2
+        y: 43
+        width: 31
+        height: 9
+      alignment: 9
+      pivot: {x: 0.42539397, y: 0.6796646}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ratter_sliced2_karategi_final_6
+    - name: gun_7
       rect:
         serializedVersion: 2
-        x: 11
-        y: 41
-        width: 41
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 2
+        y: 28
+        width: 26
+        height: 10
+      alignment: 9
+      pivot: {x: 0.425793, y: 0.6035029}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: ratter_sliced2_karategi_final_7
+    - name: gun_8
       rect:
         serializedVersion: 2
-        x: 58
-        y: 41
-        width: 41
-        height: 20
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 69
+        y: 116
+        width: 26
+        height: 10
+      alignment: 9
+      pivot: {x: 0.47982195, y: 0.56613714}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     outline: []
