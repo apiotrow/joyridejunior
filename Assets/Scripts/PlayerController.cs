@@ -29,9 +29,16 @@ public class PlayerController : MonoBehaviour {
 	GameObject sheathedMelee_L;
 	GameObject sheathedGun_L;
 	GameObject gun;
+	Gun gunScript;
 
 	AudioClip slashEnemy;
 	AudioClip slashAir;
+
+	Sprite[] meleeTextures;
+	string[] meleeWeapons;
+
+	Sprite[] gunTextures;
+	string[] guns;
 
 	float maxHealth = 100f;
 
@@ -63,15 +70,6 @@ public class PlayerController : MonoBehaviour {
 		return reticleTarget;
 	}
 
-	void changeWeapon(Sprite meleeSprite, Sprite rangedSprite){
-		melee.GetComponent<SpriteRenderer>().sprite = meleeSprite;
-		gun.GetComponent<SpriteRenderer>().sprite = rangedSprite;
-		sheathedMelee_R.GetComponent<SpriteRenderer>().sprite = meleeSprite;
-		sheathedMelee_L.GetComponent<SpriteRenderer>().sprite = meleeSprite;
-		sheathedGun_R.GetComponent<SpriteRenderer>().sprite = rangedSprite;
-		sheathedGun_L.GetComponent<SpriteRenderer>().sprite = rangedSprite;
-	}
-
 	void Start () {
 		player = GameObject.Find("Player");
 		playerRB = player.GetComponent<Rigidbody2D>();
@@ -82,6 +80,7 @@ public class PlayerController : MonoBehaviour {
 
 		melee = transform.Find("gunlight/melee").gameObject;
 		gun = transform.Find("gunlight/gun").gameObject;
+		gunScript = gun.GetComponent<Gun>();
 		sheath_R = transform.Find("sheath_R").gameObject;
 		sheath_L = transform.Find("sheath_L").gameObject;
 		sheathedMelee_R = sheath_R.transform.Find("melee").gameObject;
@@ -89,24 +88,20 @@ public class PlayerController : MonoBehaviour {
 		sheathedMelee_L = sheath_L.transform.Find("melee").gameObject;
 		sheathedGun_L = sheath_L.transform.Find("gun").gameObject;
 
-		Sprite[] meleeTextures = Resources.LoadAll<Sprite>("Sprites/Weapons/joyride_melee");
-		string[] meleeWeapons = new string[meleeTextures.Length];
+		meleeTextures = Resources.LoadAll<Sprite>("Sprites/Weapons/joyride_melee");
+		meleeWeapons = new string[meleeTextures.Length];
 		for(int i = 0; i < meleeWeapons.Length; i++) {
 			meleeWeapons[i] = meleeTextures[i].name;
 		}
-		Sprite[] gunTextures = Resources.LoadAll<Sprite>("Sprites/Weapons/joyride_guns");
-		string[] guns = new string[gunTextures.Length];
+		gunTextures = Resources.LoadAll<Sprite>("Sprites/Weapons/joyride_guns");
+		guns = new string[gunTextures.Length];
 		for(int i = 0; i < guns.Length; i++) {
 			guns[i] = gunTextures[i].name;
 		}
 		Button btn;
 		btn = GameObject.Find("Button_ChangeWeapon").GetComponent("Button") as Button;
 		btn.onClick.AddListener(() => {
-			string randMeleeWeap = meleeWeapons[Random.Range(0, meleeWeapons.Length)];
-			string randGun = guns[Random.Range(0, guns.Length)];
-			Sprite gunSp = gunTextures.Where(t => t.name == randGun).First<Sprite>();
-			Sprite meleeSp = meleeTextures.Where(t => t.name == randMeleeWeap).First<Sprite>();
-			changeWeapon(meleeSp, gunSp);
+			changeWeaponVisuals();
 		});
 
 		infHealth = GameObject.Find("Toggle_InfHealth").GetComponent<Toggle>() as Toggle;
@@ -125,12 +120,17 @@ public class PlayerController : MonoBehaviour {
 
 		slashAir = Resources.Load("Sounds/slashair") as AudioClip;
 		slashEnemy = Resources.Load("Sounds/slash") as AudioClip;
+
+		//initialize weapon
+		gunScript.setWeapon(Gun.Weapon.WeaponType.Angler);
+		changeWeaponVisuals();
 	}
 
 	void Update () {
 		updatePlayerPosition();
 		updateAiming();
 		handleMeleeAttack();
+		handleWeaponChanging();
 		updateWeaponVisibility();
 		updateCam();
 
@@ -148,6 +148,30 @@ public class PlayerController : MonoBehaviour {
 			worldLight.SetActive(true);
 			light_gunlight.SetActive(false);
 		}
+	}
+
+	void handleWeaponChanging(){
+		if(Input.GetKey(KeyCode.Alpha1)){
+			gunScript.setWeapon(Gun.Weapon.WeaponType.Angler);
+			changeWeaponVisuals();
+		}else if(Input.GetKey(KeyCode.Alpha2)){
+			gunScript.setWeapon(Gun.Weapon.WeaponType.MP5);
+			changeWeaponVisuals();
+		}
+	}
+
+	void changeWeaponVisuals(){
+		Sprite gunSp = gunTextures.Where(t => t.name == gunScript.currWeapon.gunSprite).First<Sprite>();
+
+		string randMeleeWeap = meleeWeapons[Random.Range(0, meleeWeapons.Length)];
+		Sprite meleeSp = meleeTextures.Where(t => t.name == randMeleeWeap).First<Sprite>();
+
+		melee.GetComponent<SpriteRenderer>().sprite = meleeSp;
+		gun.GetComponent<SpriteRenderer>().sprite = gunSp;
+		sheathedMelee_R.GetComponent<SpriteRenderer>().sprite = meleeSp;
+		sheathedMelee_L.GetComponent<SpriteRenderer>().sprite = meleeSp;
+		sheathedGun_R.GetComponent<SpriteRenderer>().sprite = gunSp;
+		sheathedGun_L.GetComponent<SpriteRenderer>().sprite = gunSp;
 	}
 
 	void updatePlayerPosition(){

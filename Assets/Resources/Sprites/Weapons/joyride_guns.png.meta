@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 43d7aebb5354c42c1a11ff513709dd51
-timeCreated: 1471548890
+timeCreated: 1471553488
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -12,6 +12,11 @@ TextureImporter:
     21300010: gun_6
     21300012: gun_7
     21300014: gun_8
+    21300016: gun_13
+    21300018: gun_9
+    21300020: gun_10
+    21300022: gun_11
+    21300024: gun_12
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -144,6 +149,61 @@ TextureImporter:
         height: 10
       alignment: 9
       pivot: {x: 0.47982195, y: 0.56613714}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gun_13
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 3
+        width: 42
+        height: 15
+      alignment: 9
+      pivot: {x: 0.3303024, y: 0.41807696}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gun_9
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 103
+        width: 23
+        height: 10
+      alignment: 9
+      pivot: {x: 0.4893142, y: 0.46313477}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gun_10
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 87
+        width: 34
+        height: 12
+      alignment: 9
+      pivot: {x: 0.38083926, y: 0.51024055}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gun_11
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 72
+        width: 45
+        height: 11
+      alignment: 9
+      pivot: {x: 0.29792327, y: 0.53351384}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: gun_12
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 59
+        width: 31
+        height: 6
+      alignment: 9
+      pivot: {x: 0.3576244, y: 0.5342286}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
     outline: []

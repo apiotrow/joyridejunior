@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c3ee126d076e8448e9ce8bfd3bf56cbf
-timeCreated: 1471548942
+timeCreated: 1471553867
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -14,6 +14,10 @@ TextureImporter:
     21300014: gun_8
     21300016: bullets_0
     21300018: bullets_1
+    21300020: bullets_2
+    21300022: bullets_3
+    21300024: bullets_4
+    21300026: bullets_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -78,6 +82,50 @@ TextureImporter:
         y: 122
         width: 1
         height: 2
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: bullets_2
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 77
+        width: 2
+        height: 3
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: bullets_3
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 76
+        width: 3
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: bullets_4
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 75
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: bullets_5
+      rect:
+        serializedVersion: 2
+        x: 44
+        y: 74
+        width: 5
+        height: 9
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

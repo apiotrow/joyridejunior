@@ -212,7 +212,7 @@ public class Enemy : AILerp {
 					//if player is in line of sight
 					if(tags.IndexOf("Player") == 0){
 						GameObject newBullet = 
-							GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, Quaternion.identity) as GameObject;
+							GameObject.Instantiate(Resources.Load("Prefabs/Bullet_MP5"), transform.position, Quaternion.identity) as GameObject;
 						newBullet.GetComponent<Bullet>().setDirection(pc.transform.position);
 						newBullet.GetComponent<Bullet>().setTargetTag("Player");
 						newBullet.GetComponent<Bullet>().setColor(Color.green);
@@ -220,13 +220,14 @@ public class Enemy : AILerp {
 						newBullet.GetComponent<Bullet>().makeReady();
 					}
 				}
+			//for melee we still shoot bullet, but just make it invisible
 			}else if(seekMode == SeekMode.melee){
 				if(Vector3.Distance(transform.position, pc.transform.position) < 2f){
 					GameObject newBullet = 
-						GameObject.Instantiate(Resources.Load("Prefabs/Bullet"), transform.position, Quaternion.identity) as GameObject;
+						GameObject.Instantiate(Resources.Load("Prefabs/Bullet_MP5"), transform.position, Quaternion.identity) as GameObject;
 					newBullet.GetComponent<Bullet>().setDirection(pc.transform.position);
 					newBullet.GetComponent<Bullet>().setTargetTag("Player");
-					newBullet.GetComponent<Bullet>().setColor(Color.green);
+					newBullet.GetComponent<Bullet>().makeInvisible();
 
 					newBullet.GetComponent<Bullet>().makeReady();
 				}
@@ -273,11 +274,11 @@ public class Enemy : AILerp {
 		if(mode == PlayerController.killMode.sliced){
 			randDeathInt = Random.Range(1,4);
 		}else if(mode == PlayerController.killMode.shot){
-			randDeathInt = Random.Range(4,6);
+			randDeathInt = Random.Range(4,7);
 		}else if(mode == PlayerController.killMode.puked){
-			randDeathInt = Random.Range(6,7);
-		}else if(mode == PlayerController.killMode.burnt){
 			randDeathInt = Random.Range(7,8);
+		}else if(mode == PlayerController.killMode.burnt){
+			randDeathInt = Random.Range(8,9);
 		}
 
 		anim.SetInteger("randDeathInt", randDeathInt);
