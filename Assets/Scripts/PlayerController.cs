@@ -37,7 +37,9 @@ public class PlayerController : MonoBehaviour {
 
 	public enum killMode{
 		sliced,
-		shot
+		shot,
+		burnt,
+		puked
 	}
 
 	public enum MoveType {
@@ -79,7 +81,7 @@ public class PlayerController : MonoBehaviour {
 		currHealth = maxHealth;
 
 		melee = transform.Find("gunlight/melee").gameObject;
-		gun = transform.Find("gunlight/gun1").gameObject;
+		gun = transform.Find("gunlight/gun").gameObject;
 		sheath_R = transform.Find("sheath_R").gameObject;
 		sheath_L = transform.Find("sheath_L").gameObject;
 		sheathedMelee_R = sheath_R.transform.Find("melee").gameObject;

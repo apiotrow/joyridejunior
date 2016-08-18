@@ -1,40 +1,19 @@
 fileFormatVersion: 2
-guid: e00f7036e40694496952f924c214d1df
-timeCreated: 1470604702
+guid: c3ee126d076e8448e9ce8bfd3bf56cbf
+timeCreated: 1471548942
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: gunssmaller_0
-    21300002: gunssmaller_1
-    21300004: gunssmaller_2
-    21300006: gunssmaller_3
-    21300008: gunssmaller_4
-    21300010: gunssmaller_5
-    21300012: gunssmaller_6
-    21300014: gunssmaller_7
-    21300016: gunssmaller_8
-    21300018: gunssmaller_9
-    21300020: gunssmaller_10
-    21300022: gunssmaller_11
-    21300024: gunssmaller_12
-    21300026: gunssmaller_13
-    21300028: bullets_0
-    21300030: bullets_1_rep
-    21300032: bullets_2_rep
-    21300034: bullets_1_seq
-    21300036: bullets_4
-    21300038: bullets_5
-    21300040: bullets_6
-    21300042: bullets_7
-    21300044: bullets_8
-    21300046: bullets_9
-    21300048: bullets_10
-    21300050: bullets_0
-    21300052: bullets_12
-    21300054: bullets_13
-    21300056: bullets_2_seq
-    21300058: bullets_3_seq
-    21300060: bullets_3_more
+    21300000: gun_1
+    21300002: gun_2
+    21300004: gun_3
+    21300006: gun_4
+    21300008: gun_5
+    21300010: gun_6
+    21300012: gun_7
+    21300014: gun_8
+    21300016: bullets_0
+    21300018: bullets_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -84,39 +63,6 @@ TextureImporter:
     - name: bullets_0
       rect:
         serializedVersion: 2
-        x: 62
-        y: 10
-        width: 22
-        height: 24
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: bullets_1_rep
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 122
-        width: 1
-        height: 2
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: bullets_2_rep
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 108
-        width: 6
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: bullets_1_seq
-      rect:
-        serializedVersion: 2
         x: 23
         y: 122
         width: 2
@@ -125,35 +71,13 @@ TextureImporter:
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
-    - name: bullets_2_seq
+    - name: bullets_1
       rect:
         serializedVersion: 2
-        x: 29
-        y: 106
-        width: 8
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: bullets_3_seq
-      rect:
-        serializedVersion: 2
-        x: 27
-        y: 92
-        width: 3
-        height: 3
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-    - name: bullets_3_more
-      rect:
-        serializedVersion: 2
-        x: 30
-        y: 92
-        width: 6
-        height: 3
+        x: 26
+        y: 122
+        width: 1
+        height: 2
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

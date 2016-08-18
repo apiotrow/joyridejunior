@@ -6,7 +6,6 @@ using UnityEngine.EventSystems;
 
 public class Gun : MonoBehaviour {
 	PlayerController pc;
-	public Sprite gun;
 	public List<Sprite> bulletSequence;
 	public List<Sprite> bulletRepeat;
 
@@ -45,7 +44,7 @@ public class Gun : MonoBehaviour {
 		ammoText.text = ammoString;
 
 		if(firing){
-			GetComponent<AudioSource>().volume = 1f;
+			GetComponent<AudioSource>().volume = 0.5f;
 			if(!GetComponent<AudioSource>().isPlaying)
 				GetComponent<AudioSource>().Play();
 		}else{

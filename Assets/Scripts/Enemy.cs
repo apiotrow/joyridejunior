@@ -20,6 +20,7 @@ public class Enemy : AILerp {
 	float maxHealth = 30f;
 	float minSpeed = 1;
 	float maxSpeed = 6;
+	bool dropLoot = false;
 
 	public enum SeekMode{
 		melee,
@@ -267,11 +268,16 @@ public class Enemy : AILerp {
 		Destroy(healthBar.gameObject);
 
 		//determine what death animation should play, based on how we are killed
+		//Random.Range(1,3) does 1-2, Random.Range(3,5) does 3-4
 		int randDeathInt = 0;
 		if(mode == PlayerController.killMode.sliced){
-			randDeathInt = Random.Range(1,3); //1-2
+			randDeathInt = Random.Range(1,4);
 		}else if(mode == PlayerController.killMode.shot){
-			randDeathInt = Random.Range(3,5); //3-4
+			randDeathInt = Random.Range(4,6);
+		}else if(mode == PlayerController.killMode.puked){
+			randDeathInt = Random.Range(6,7);
+		}else if(mode == PlayerController.killMode.burnt){
+			randDeathInt = Random.Range(7,8);
 		}
 
 		anim.SetInteger("randDeathInt", randDeathInt);
@@ -297,27 +303,29 @@ public class Enemy : AILerp {
 		if(!GameObject.Find("GameManager").GetComponent<GameManager>().doEnemyCorpsesDisappear())
 			anim.speed = 0;
 
-		//drop loot
-		int roll = Random.Range(0,10);
+		if(dropLoot){
+			//drop loot
+			int roll = Random.Range(0,10);
 
-		if(roll == 1 || roll == 2){
-			GameObject goods = 
-				GameObject.Instantiate(
-					Resources.Load("Prefabs/Ammo"), 
-					transform.position, 
-					Quaternion.identity) as GameObject;
-		}else if(roll == 3 || roll == 4){
-			GameObject goods = 
-				GameObject.Instantiate(
-					Resources.Load("Prefabs/Health"), 
-					transform.position, 
-					Quaternion.identity) as GameObject;
-		}else if(roll == 7){
-			GameObject goods = 
-				GameObject.Instantiate(
-					Resources.Load("Prefabs/BouncyAmmo"), 
-					transform.position, 
-					Quaternion.identity) as GameObject;
+			if(roll == 1 || roll == 2){
+				GameObject goods = 
+					GameObject.Instantiate(
+						Resources.Load("Prefabs/Ammo"), 
+						transform.position, 
+						Quaternion.identity) as GameObject;
+			}else if(roll == 3 || roll == 4){
+				GameObject goods = 
+					GameObject.Instantiate(
+						Resources.Load("Prefabs/Health"), 
+						transform.position, 
+						Quaternion.identity) as GameObject;
+			}else if(roll == 7){
+				GameObject goods = 
+					GameObject.Instantiate(
+						Resources.Load("Prefabs/BouncyAmmo"), 
+						transform.position, 
+						Quaternion.identity) as GameObject;
+			}
 		}
 
 		Destroy(this); //destroy this script
